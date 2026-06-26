@@ -25,7 +25,7 @@
   
   /* Navigation */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(13,27,42,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(245,166,35,0.15); }
-  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; cursor: pointer; }
   .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
@@ -54,11 +54,11 @@
   /* Roadmap Track */
   .roadmap { width: 100%; max-width: 900px; margin: 4rem auto 0; animation: fadeUp 0.6s 0.4s ease both; }
   .roadmap-track { display: flex; align-items: center; justify-content: center; gap: 0; position: relative; overflow-x: auto; padding: 1rem 0; }
-  .level-node { display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; }
+  .level-node { display: flex; flex-direction: column; align-items: center; position: relative; cursor: pointer; min-width: 70px; }
   .level-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 0.85rem; border: 2px solid; transition: all 0.25s; position: relative; z-index: 2; }
   .level-node:hover .level-circle { transform: scale(1.15); box-shadow: 0 0 20px currentColor; }
   .level-label { font-size: 0.7rem; font-weight: 600; margin-top: 0.5rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.05em; }
-  .level-connector { width: 48px; height: 2px; background: linear-gradient(90deg, currentColor, transparent); opacity: 0.25; margin-bottom: 22px; }
+  .level-connector { width: 48px; height: 2px; background: linear-gradient(90deg, currentColor, transparent); opacity: 0.25; margin-bottom: 22px; flex-shrink: 0; }
   
   .l-a0 .level-circle { background: rgba(126,200,164,0.15); border-color: var(--sage); color: var(--sage); }
   .l-a1 .level-circle { background: rgba(126,200,164,0.2); border-color: #5eb58a; color: #5eb58a; }
@@ -73,7 +73,7 @@
   .level-connector.c-red { color: #e06060; }
   .level-connector.c-purple { color: #c46dd4; }
   
-  /* Stats & Content Sections */
+  /* Sections styling */
   .stats-bar { display: flex; justify-content: center; gap: 3rem; margin-top: 3rem; flex-wrap: wrap; animation: fadeUp 0.6s 0.5s ease both; }
   .stat { text-align: center; }
   .stat-number { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold); }
@@ -87,17 +87,16 @@
   .categories-section { background: var(--navy-mid); border-radius: 2rem; padding: 4rem; margin: 0 2rem; max-width: none; }
   .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
   .cat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.5rem; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
-  .cat-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+  .cat-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); }
   .cat-icon { font-size: 2rem; margin-bottom: 0.8rem; }
   .cat-name { font-weight: 600; font-size: 0.95rem; }
   .cat-count { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem; }
   .cat-bar { height: 3px; border-radius: 2px; margin-top: 1rem; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
   .cat-bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 2px; width: 0; transition: width 1s ease 0.5s; }
   
-  /* Skills & Tabs */
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
   .skill-card { background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.07); border-radius: 1.5rem; padding: 2rem; transition: all 0.25s; cursor: pointer; }
-  .skill-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .skill-card:hover { transform: translateY(-4px); border-color: var(--gold); background: rgba(255,255,255,0.02); }
   .skill-icon-wrap { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem; }
   .skill-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
   .skill-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
@@ -122,57 +121,64 @@
   footer { border-top: 1px solid rgba(255,255,255,0.07); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; color: var(--text-muted); font-size: 0.8rem; }
   footer strong { color: var(--gold); }
   
-  /* --- APP WRAPPER SYSTEM (New Update) --- */
-  #appWorkspace { position: fixed; inset: 0; z-index: 1000; background: var(--navy); display: none; grid-template-columns: 260px 1fr; animation: workspaceFadeIn 0.4s ease; }
-  @keyframes workspaceFadeIn { from { opacity: 0; transform: scale(1.02); } to { opacity: 1; transform: scale(1); } }
+  /* --- WORKSPACE SYSTEM --- */
+  #appWorkspace { position: fixed; inset: 0; z-index: 1000; background: var(--navy); display: none; grid-template-columns: 260px 1fr; animation: workspaceFadeIn 0.3s ease; }
+  @keyframes workspaceFadeIn { from { opacity: 0; } to { opacity: 1; } }
   
   .app-sidebar { background: var(--navy-mid); border-right: 1px solid rgba(255,255,255,0.06); padding: 2rem 1.5rem; display: flex; flex-direction: column; justify-content: space-between; }
-  .app-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; margin-bottom: 2rem; }
+  .app-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; }
   .app-brand span { color: var(--gold); }
-  .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-top: 2rem; }
   .sidebar-link { display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1rem; border-radius: 12px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
   .sidebar-link:hover, .sidebar-link.active { background: rgba(255,255,255,0.05); color: var(--white); }
-  .sidebar-link.active { border-left: 3px solid var(--gold); color: var(--gold); }
+  .sidebar-link.active { border-left: 3px solid var(--gold); color: var(--gold); background: rgba(245,166,35,0.05); }
   
   .app-main { display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-  .app-header { background: rgba(13,27,42,0.6); backdrop-filter: blur(8px); padding: 1.2rem 3rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
-  .app-content-pane { padding: 3rem; flex-grow: 1; display: none; }
+  .app-header { background: rgba(13,27,42,0.8); backdrop-filter: blur(8px); padding: 1.2rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+  .app-content-pane { padding: 2rem; flex-grow: 1; display: none; }
   .app-content-pane.active { display: block; }
   
-  /* Flashcards Component */
-  .flashcard-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 320px; margin: 2rem 0; }
-  .flashcard { width: 340px; height: 220px; perspective: 1000px; cursor: pointer; }
-  .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); border-radius: 1.5rem; }
+  /* Flashcards Layout */
+  .flashcard-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px; margin: 1.5rem 0; gap: 1.5rem; }
+  .flashcard { width: 100%; max-width: 340px; height: 200px; perspective: 1000px; cursor: pointer; }
+  .card-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.4); border-radius: 1.5rem; }
   .flashcard.flipped .card-inner { transform: rotateY(180deg); }
-  .card-front, .card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; text-align: center; border: 1px solid rgba(245,166,35,0.2); }
+  .card-front, .card-back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; border: 1px solid rgba(245,166,35,0.2); }
   .card-front { background: var(--navy-mid); color: var(--white); }
   .card-back { background: var(--navy-light); color: var(--gold); transform: rotateY(180deg); }
   .card-context { font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; font-style: italic; }
+  .audio-btn { background: rgba(245,166,35,0.1); padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid rgba(245,166,35,0.2); color: var(--gold-light); margin-top: 0.5rem; cursor: pointer; }
   
-  /* Interactive Story Layout */
-  .story-workspace { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2.5rem; margin-top: 2rem; }
-  .story-text-card { background: var(--navy-mid); padding: 2rem; border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.05); line-height: 1.8; font-size: 1.05rem; }
-  .clickable-word { cursor: pointer; border-bottom: 1px dashed rgba(245,166,35,0.4); padding: 0 1px; transition: background 0.2s; }
-  .clickable-word:hover { background: rgba(245,166,35,0.15); color: var(--gold); }
+  /* Context Story Explorer Layout */
+  .story-workspace { display: grid; grid-template-columns: 1.2fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+  .story-text-card { background: var(--navy-mid); padding: 2rem; border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.05); line-height: 1.9; font-size: 1.1rem; }
+  .clickable-word { cursor: pointer; border-bottom: 2px dashed rgba(245,166,35,0.4); padding: 0 2px; transition: all 0.2s; display: inline-block; }
+  .clickable-word:hover { background: rgba(245,166,35,0.15); color: var(--gold); border-radius: 4px; }
   .story-inspector { background: var(--navy-light); padding: 2rem; border-radius: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 200px; border: 1px dashed rgba(255,255,255,0.1); }
 
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @media (max-width: 768px) { 
-    nav { padding: 1rem 1.5rem; } .nav-links { display: none; } .hero { padding: 6rem 1.5rem 3rem; } .level-info { grid-template-columns: 1fr; } .categories-section { padding: 2.5rem 1.5rem; margin: 0 1rem; } footer { flex-direction: column; gap: 1rem; text-align: center; } 
-    #appWorkspace { grid-template-columns: 1fr; } .app-sidebar { display: none; } .story-workspace { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; } 
+    .nav-links { display: none; } 
+    .hero { padding: 6rem 1.5rem 3rem; } 
+    .level-info { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; } 
+    .categories-section { padding: 2rem 1rem; margin: 0 0.5rem; } 
+    .story-workspace { grid-template-columns: 1fr; }
+    #appWorkspace { grid-template-columns: 1fr; } 
+    .app-sidebar { display: none; }
+    .mobile-back-btn { display: inline-flex !important; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Deutsch<span>Weg</span></div>
+  <div class="nav-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">Deutsch<span>Weg</span></div>
   <ul class="nav-links">
     <li><a href="#categories">Vocabulary</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#levels">Levels</a></li>
   </ul>
-  <button onclick="launchWorkspace('a0')" class="nav-cta">Start Learning</button>
+  <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="nav-cta">Start Learning</button>
 </nav>
 
 <div class="hero" id="start">
@@ -181,25 +187,25 @@
   <h1 class="hero-title">Master<br><em>Deutsch</em><br>from A0 to C2</h1>
   <p class="hero-sub">Structured vocabulary, stories, listening, reading, writing — every level, every skill, one focused path. Insha Allah, you'll get there.</p>
   <div class="hero-actions">
-    <button onclick="launchWorkspace('a0')" class="btn-primary">Begin at A0 →</button>
+    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Begin at A0 →</button>
     <a href="#categories" class="btn-ghost">Explore Categories</a>
   </div>
   
   <div class="roadmap">
     <div class="roadmap-track">
-      <div class="level-node l-a0" onclick="launchWorkspace('a0')"><div class="level-circle">A0</div><div class="level-label">Starter</div></div>
+      <div class="level-node l-a0" onclick="launchWorkspace('a0', 'paneFlashcards')"><div class="level-circle">A0</div><div class="level-label">Starter</div></div>
       <div class="level-connector c-sage"></div>
-      <div class="level-node l-a1" onclick="launchWorkspace('a1')"><div class="level-circle">A1</div><div class="level-label">Beginner</div></div>
+      <div class="level-node l-a1" onclick="launchWorkspace('a1', 'paneFlashcards')"><div class="level-circle">A1</div><div class="level-label">Beginner</div></div>
       <div class="level-connector c-sage"></div>
-      <div class="level-node l-a2" onclick="launchWorkspace('a2')"><div class="level-circle">A2</div><div class="level-label">Elementary</div></div>
+      <div class="level-node l-a2" onclick="launchWorkspace('a2', 'paneFlashcards')"><div class="level-circle">A2</div><div class="level-label">Elementary</div></div>
       <div class="level-connector c-gold"></div>
-      <div class="level-node l-b1" onclick="launchWorkspace('b1')"><div class="level-circle">B1</div><div class="level-label">Intermediate</div></div>
+      <div class="level-node l-b1" onclick="launchWorkspace('b1', 'paneFlashcards')"><div class="level-circle">B1</div><div class="level-label">Intermediate</div></div>
       <div class="level-connector c-gold"></div>
-      <div class="level-node l-b2" onclick="launchWorkspace('b2')"><div class="level-circle">B2</div><div class="level-label">Upper-Int.</div></div>
+      <div class="level-node l-b2" onclick="launchWorkspace('b2', 'paneFlashcards')"><div class="level-circle">B2</div><div class="level-label">Upper-Int.</div></div>
       <div class="level-connector c-red"></div>
-      <div class="level-node l-c1" onclick="launchWorkspace('c1')"><div class="level-circle">C1</div><div class="level-label">Advanced</div></div>
+      <div class="level-node l-c1" onclick="launchWorkspace('c1', 'paneFlashcards')"><div class="level-circle">C1</div><div class="level-label">Advanced</div></div>
       <div class="level-connector c-purple"></div>
-      <div class="level-node l-c2" onclick="launchWorkspace('c2')"><div class="level-circle">C2</div><div class="level-label">Mastery</div></div>
+      <div class="level-node l-c2" onclick="launchWorkspace('c2', 'paneFlashcards')"><div class="level-circle">C2</div><div class="level-label">Mastery</div></div>
     </div>
   </div>
 
@@ -215,7 +221,7 @@
   <div class="categories-section">
     <div class="section-eyebrow">Vocabulary by Topic</div>
     <h2 class="section-title">100 Essential Words — 10 Categories</h2>
-    <p class="section-sub">Every category is a door into the German world. Start anywhere — each has vocabulary, a mini-story, and exercises.</p>
+    <p class="section-sub">Every category is a door into the German world. Click any category below to immediately open its learning cards inside the workspace studio.</p>
     <div class="categories-grid" id="catGrid"></div>
   </div>
 </div>
@@ -224,12 +230,23 @@
   <div class="skills-section">
     <div class="section-eyebrow">The Four Pillars</div>
     <h2 class="section-title">Four Skills, One Language</h2>
-    <p class="section-sub">Every level covers Vocabulary Stories, Listening, Reading, and Writing — plus a Workbook for daily practice.</p>
+    <p class="section-sub">Every level covers customized interactive modules. Click on a learning pillar below to jump directly into that practical workspace module.</p>
     <div class="skills-grid">
-      <div class="skill-card"><div class="skill-icon-wrap" style="background:rgba(126,200,164,0.15)">📖</div><div class="skill-title">Vocabulary & Stories</div><div class="skill-desc">Learn words in context through short illustrated tales. Each tale covers one topic per unit.</div><div class="skill-levels"><span class="skill-level-badge">A0</span><span class="skill-level-badge">A1</span><span class="skill-level-badge">A2</span></div></div>
-      <div class="skill-card"><div class="skill-icon-wrap" style="background:rgba(245,166,35,0.15)">🎧</div><div class="skill-title">Listening Practice</div><div class="skill-desc">Audio dialogues, podcasts, and comprehension exercises matched precisely to your level.</div><div class="skill-levels"><span class="skill-level-badge">A0</span><span class="skill-level-badge">A1</span><span class="skill-level-badge">A2</span></div></div>
-      <div class="skill-card"><div class="skill-icon-wrap" style="background:rgba(180,60,200,0.15)">📄</div><div class="skill-title">Reading & Exercises</div><div class="skill-desc">Graded texts from simple notices to newspaper articles, with comprehension and grammar tasks.</div><div class="skill-levels"><span class="skill-level-badge">A0</span><span class="skill-level-badge">A1</span><span class="skill-level-badge">A2</span></div></div>
-      <div class="skill-card"><div class="skill-icon-wrap" style="background:rgba(221,100,100,0.15)">✍️</div><div class="skill-title">Writing Skills</div><div class="skill-desc">From labelling pictures to crafting essays — guided writing tasks that build your German voice.</div><div class="skill-levels"><span class="skill-level-badge">A0</span><span class="skill-level-badge">A1</span><span class="skill-level-badge">A2</span></div></div>
+      <div class="skill-card" onclick="launchWorkspace('a0', 'paneFlashcards')">
+        <div class="skill-icon-wrap" style="background:rgba(126,200,164,0.15)">🗂️</div>
+        <div class="skill-title">Vocabulary Cards</div>
+        <div class="skill-desc">Learn essential German words with live pronunciation audio modules.</div>
+      </div>
+      <div class="skill-card" onclick="launchWorkspace('a0', 'paneStories')">
+        <div class="skill-icon-wrap" style="background:rgba(245,166,35,0.15)">📖</div>
+        <div class="skill-title">Context Stories</div>
+        <div class="skill-desc">Tap sentences to inspect translations inside immersive native text streams.</div>
+      </div>
+      <div class="skill-card" onclick="launchWorkspace('a0', 'paneListening')">
+        <div class="skill-icon-wrap" style="background:rgba(180,60,200,0.15)">🎧</div>
+        <div class="skill-title">Audio Lab</div>
+        <div class="skill-desc">Listen to graded native recordings calibrated directly for your active target level.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -247,23 +264,24 @@
   <div class="section-eyebrow">Ready?</div>
   <h2 class="section-title" style="max-width:500px">Your Deutsch journey begins today</h2>
   <p class="section-sub">One word at a time, one story at a time. Insha Allah — you will reach C2.</p>
-  <div class="hero-actions" style="justify-content:center"><button onclick="launchWorkspace('a0')" class="btn-primary">Start at A0 — It's Free →</button></div>
+  <div class="hero-actions" style="justify-content:center">
+    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Start at A0 — It's Free →</button>
+  </div>
 </div>
 
 <footer>
-  <div>🇩🇪 <strong>DeutschWeg</strong> — Built with purpose, 2026</div>
+  <div>🇩🇪 <strong>DeutschWeg</strong> — Master German</div>
   <div>From A0 to C2 · Insha Allah</div>
 </footer>
-
 
 <div id="appWorkspace">
   <aside class="app-sidebar">
     <div>
       <div class="app-brand">Deutsch<span>Weg</span> Studio</div>
       <ul class="sidebar-menu">
-        <li><div class="sidebar-link active" onclick="switchPane('paneFlashcards', this)">🗂️ Vocabulary Cards</div></li>
-        <li><div class="sidebar-link" onclick="switchPane('paneStories', this)">📖 Context Story</div></li>
-        <li><div class="sidebar-link" onclick="switchPane('paneListening', this)">🎧 Audio Lab</div></li>
+        <li><div id="linkPaneFlashcards" class="sidebar-link active" onclick="switchPane('paneFlashcards')">🗂️ Vocabulary Cards</div></li>
+        <li><div id="linkPaneStories" class="sidebar-link" onclick="switchPane('paneStories')">📖 Context Story</div></li>
+        <li><div id="linkPaneListening" class="sidebar-link" onclick="switchPane('paneListening')">🎧 Audio Lab</div></li>
       </ul>
     </div>
     <button class="btn-ghost" style="padding: 0.6rem; font-size: 0.85rem;" onclick="closeWorkspace()">← Exit Studio</button>
@@ -271,26 +289,29 @@
 
   <main class="app-main">
     <header class="app-header">
-      <div>Active Level Workspace: <strong id="activeWorkspaceBadge" style="color:var(--gold)">A0</strong></div>
-      <div style="font-size:0.85rem; color:var(--text-muted)">Mock User Profile: <span style="color:var(--white)">Student Mode</span></div>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <button class="btn-ghost mobile-back-btn" style="display:none; padding: 0.4rem 0.8rem; font-size:0.8rem;" onclick="closeWorkspace()">← Exit</button>
+        <div>Level: <strong id="activeWorkspaceBadge" style="color:var(--gold)">A0</strong> <span id="activeTopicBadge" style="color:var(--sage); margin-left:0.5rem; font-size:0.85rem;"></span></div>
+      </div>
+      <div style="font-size:0.85rem; color:var(--text-muted)">User: <span style="color:var(--white)">Student Mode</span></div>
     </header>
 
     <div id="paneFlashcards" class="app-content-pane active">
-      <span class="section-eyebrow">Module 01 / Core Vocab</span>
-      <h2 style="font-family:'Playfair Display', serif; font-size:2rem; margin-bottom: 0.5rem;">Dynamic Flashcards</h2>
-      <p style="color:var(--text-muted); font-size:0.9rem;">Click the active card canvas to flip it between German and English.</p>
+      <span class="section-eyebrow">Pillar 1 / Vocabulary Training</span>
+      <h2 style="font-family:'Playfair Display', serif; font-size:1.8rem; margin-bottom: 0.5rem;">Dynamic Flashcards</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem;">Tap the card to reveal English definition. Click the speaker to play sound.</p>
       
       <div class="flashcard-container">
         <div class="flashcard" id="flashcardBox" onclick="this.classList.toggle('flipped')">
           <div class="card-inner">
             <div class="card-front">
               <span style="font-size: 0.8rem; letter-spacing: 0.1em; color:var(--gold); text-transform: uppercase;">German</span>
-              <h1 style="font-size:2.5rem; margin: 1rem 0;" id="cardWordGerman">Guten Tag</h1>
-              <span style="font-size:1.2rem;">🗣️ <small style="font-size:0.75rem; color:var(--text-muted);">Click text for speech path</small></span>
+              <h1 style="font-size:2.2rem; margin: 0.5rem 0;" id="cardWordGerman">Guten Tag</h1>
+              <div class="audio-btn" onclick="speakGermanWord(event)">🗣️ Click to Speak</div>
             </div>
             <div class="card-back">
-              <span style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">English Translation</span>
-              <h1 style="font-size:2.2rem; margin: 1rem 0;" id="cardWordEnglish">Good day / Hello</h1>
+              <span style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage)">English Translation</span>
+              <h1 style="font-size:2rem; margin: 0.5rem 0;" id="cardWordEnglish">Good day / Hello</h1>
               <p class="card-context">Used generally from morning until evening throughout Germany.</p>
             </div>
           </div>
@@ -303,64 +324,77 @@
     </div>
 
     <div id="paneStories" class="app-content-pane">
-      <span class="section-eyebrow">Module 02 / Hyper-Context Reading</span>
-      <h2 style="font-family:'Playfair Display', serif; font-size:2rem; margin-bottom:1rem;">Interactive Story Explorer</h2>
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:2rem;">Hover or tap on any underlined word to translate the sentence slice interactively.</p>
+      <span class="section-eyebrow">Pillar 2 / Reading Immersive Matrix</span>
+      <h2 style="font-family:'Playfair Display', serif; font-size:1.8rem; margin-bottom:1rem;">Interactive Story Explorer</h2>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1.5rem;">Tap any underlined fragment to read structural details and translate sentences interactively.</p>
       
       <div class="story-workspace">
         <div class="story-text-card">
           <span class="clickable-word" onclick="inspectWord('Hallo','Hello')">Hallo</span>, 
           <span class="clickable-word" onclick="inspectWord('ich bin','I am')">ich bin</span> Lukas. 
           <span class="clickable-word" onclick="inspectWord('Ich wohne','I live')">Ich wohne</span> in 
-          <span class="clickable-word" onclick="inspectWord('Berlin','Berlin (Capital of Germany)')">Berlin</span>. 
+          <span class="clickable-word" onclick="inspectWord('Berlin','Berlin (The Capital of Germany)')">Berlin</span>. 
           <span class="clickable-word" onclick="inspectWord('Das ist','That is / This is')">Das ist</span> 
           <span class="clickable-word" onclick="inspectWord('meine Familie','my family')">meine Familie</span>. 
           <span class="clickable-word" onclick="inspectWord('Wir lernen','We learn / We are learning')">Wir lernen</span> zusammen 
           <span class="clickable-word" onclick="inspectWord('Deutsch','German')">Deutsch</span>.
         </div>
         <div class="story-inspector" id="inspectorBox">
-          <div style="font-size:2.5rem; margin-bottom:1rem;">🔍</div>
-          <h3 id="inspectGerman" style="color:var(--gold); font-size:1.4rem; margin-bottom:0.5rem;">Click a word</h3>
-          <p id="inspectEnglish" style="color:var(--text-muted); font-size:0.95rem;">Its translation layout will render right here inside this panel context.</p>
+          <div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div>
+          <h3 id="inspectGerman" style="color:var(--gold); font-size:1.3rem; margin-bottom:0.5rem;">Tap a word fragment</h3>
+          <p id="inspectEnglish" style="color:var(--text-muted); font-size:0.9rem;">The semantic context analysis will load here instantly.</p>
         </div>
       </div>
     </div>
 
     <div id="paneListening" class="app-content-pane">
-      <span class="section-eyebrow">Module 03 / Audio Lab</span>
-      <h2 style="font-family:'Playfair Display', serif; font-size:2rem; margin-bottom:1rem;">Native Listening Unit</h2>
-      <div style="background:var(--navy-mid); border:1px dashed rgba(255,255,255,0.1); border-radius:1.5rem; padding:4rem; text-align:center; margin-top:2rem;">
-         <span style="font-size:3rem;">🎧</span>
-         <h3 style="margin:1rem 0;">Audio Streams Interface Ready</h3>
-         <p style="color:var(--text-muted); max-width:400px; margin:0 auto 1.5rem; font-size:0.9rem;">This node is wired up to accept media hooks from your future database API setup.</p>
-         <button class="btn-ghost" disabled style="opacity:0.5; cursor:not-allowed;">Play Lesson Audio</button>
+      <span class="section-eyebrow">Pillar 3 / Graded Audio Laboratory</span>
+      <h2 style="font-family:'Playfair Display', serif; font-size:1.8rem; margin-bottom:1rem;">Audio Comprehension Channel</h2>
+      <div style="background:var(--navy-mid); border:1px dashed rgba(255,255,255,0.1); border-radius:1.5rem; padding:3rem; text-align:center; margin-top:1rem;">
+         <span style="font-size:2.5rem;">🎧</span>
+         <h3 style="margin:1rem 0;">Audio Workspace Operational</h3>
+         <p style="color:var(--text-muted); max-width:400px; margin:0 auto 1.5rem; font-size:0.9rem;">The media streams component framework is waiting for structural server integration.</p>
+         <button class="btn-ghost" onclick="alert('Audio stream loading... Connect backend to stream continuous native audio tracks.')">Test Stream Channel</button>
       </div>
     </div>
   </main>
 </div>
 
 <script>
-// Mock Content Matrix for active Frontend Display
-const mockWords = [
-  { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting across Germany." },
-  { de: "Bitte", en: "Please / You're welcome", ctx: "Multi-purpose courtesy word depending heavily on context." },
-  { de: "Danke schön", en: "Thank you very much", ctx: "Polite structure used daily." },
-  { de: "Auf Wiedersehen", en: "Goodbye", ctx: "Formal farewell statement, literally meaning 'Until we see each other again'." }
-];
+// Vocabulary Datasets matching specific Categories
+const vocabDatabase = {
+  general: [
+    { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting across Germany." },
+    { de: "Bitte", en: "Please / You're welcome", ctx: "Multi-purpose courtesy word depending heavily on context." },
+    { de: "Danke schön", en: "Thank you very much", ctx: "Polite structure used daily." },
+    { de: "Auf Wiedersehen", en: "Goodbye", ctx: "Formal farewell statement, literally meaning 'Until we see each other again'." }
+  ],
+  family: [
+    { de: "die Familie", en: "the family", ctx: "Collective noun describing immediate relatives." },
+    { de: "der Vater", en: "the father", ctx: "Masculine singular noun for dad." },
+    { de: "die Mutter", en: "the mother", ctx: "Feminine singular noun for mom." },
+    { de: "der Bruder", en: "the brother", ctx: "Masculine sibling reference." }
+  ],
+  weather: [
+    { de: "das Wetter", en: "the weather", ctx: "Used to talk about conditions outside." },
+    { de: "die Sonne", en: "the sun", ctx: "Feminine noun for the sun." },
+    { de: "Es regnet", en: "It is raining", ctx: "Verbal expression for rainfall updates." }
+  ]
+};
+
+let activeVocabSet = vocabDatabase.general;
 let currentCardIdx = 0;
 
-// Landing Page Layout Builders
+// Dynamic categories setup
 const categories = [
-  { icon: '👨‍👩‍👧', name: 'Family & People', color: '#4FC3F7', words: 120 },
-  { icon: '🌤️', name: 'Weather & Nature', color: '#4FC3F7', words: 90 },
-  { icon: '💬', name: 'More Verbs', color: '#F5A623', words: 150 },
-  { icon: '🏠', name: 'Home & Living', color: '#F5A623', words: 130 },
-  { icon: '🏙️', name: 'City & Places', color: '#EF5350', words: 100 },
-  { icon: '📝', name: 'Adjectives', color: '#EF5350', words: 140 },
-  { icon: '🍕', name: 'Food & Drinks', color: '#66BB6A', words: 120 },
-  { icon: '⏰', name: 'Time & Frequency', color: '#66BB6A', words: 80 },
-  { icon: '👕', name: 'Clothing', color: '#AB47BC', words: 70 },
-  { icon: '🔗', name: 'Connecting Words', color: '#AB47BC', words: 60 },
+  { icon: '👨‍👩‍👧', name: 'Family & People', key: 'family', color: '#4FC3F7', words: 120 },
+  { icon: '🌤️', name: 'Weather & Nature', key: 'weather', color: '#4FC3F7', words: 90 },
+  { icon: '💬', name: 'More Verbs', key: 'general', color: '#F5A623', words: 150 },
+  { icon: '🏠', name: 'Home & Living', key: 'general', color: '#F5A623', words: 130 },
+  { icon: '🏙️', name: 'City & Places', key: 'general', color: '#EF5350', words: 100 },
+  { icon: '📝', name: 'Adjectives', key: 'general', color: '#EF5350', words: 140 },
+  { icon: '🍕', name: 'Food & Drinks', key: 'general', color: '#66BB6A', words: 120 },
+  { icon: '⏰', name: 'Time & Frequency', key: 'general', color: '#66BB6A', words: 80 }
 ];
 
 const grid = document.getElementById('catGrid');
@@ -368,6 +402,10 @@ categories.forEach(c => {
   const pct = Math.round((c.words / 160) * 100);
   const card = document.createElement('div');
   card.className = 'cat-card';
+  card.onclick = () => {
+    if(vocabDatabase[c.key]) activeVocabSet = vocabDatabase[c.key];
+    launchWorkspace('A0', 'paneFlashcards', c.name);
+  };
   card.innerHTML = `<div class="cat-icon">${c.icon}</div><div class="cat-name">${c.name}</div><div class="cat-count">${c.words} words</div><div class="cat-bar"><div class="cat-bar-fill" data-pct="${pct}" style="background:${c.color}"></div></div>`;
   grid.appendChild(card);
 });
@@ -378,9 +416,9 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(grid);
 
 const levels = [
-  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. A0 is where you meet the German alphabet, numbers, colors, basic greetings, and the very first 100 words.', topics: ['Alphabet & Pronunciation', 'Numbers 1–100', 'Colors & Shapes', 'Greetings & Farewells', 'Days & Months'] },
-  { id: 'a1', label: 'A1', name: 'Beginner', desc: 'You can introduce yourself, talk about your family, describe where you live, and handle simple transactions like buying food.', topics: ['Family & People', 'City & Places', 'Food & Drinks', 'Clothing', 'Present Tense Verbs'] },
-  { id: 'a2', label: 'A2', name: 'Elementary', desc: 'Everyday conversations — describing your home, talking about the weather, discussing routines, and writing short messages.', topics: ['Home & Living', 'Weather & Nature', 'Time & Frequency', 'Adjectives', 'Past Tense (Perfekt)'] },
+  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. Meet basic greeting strings, sounds, and standard structural foundations.', topics: ['Alphabet & Sounds', 'Numbers 1–100', 'Greetings & Farewells'] },
+  { id: 'a1', label: 'A1', name: 'Beginner', desc: 'Introduce yourself comfortably, explain family dynamics, and manage restaurant orders.', topics: ['Family Contexts', 'Food & Shopping', 'Present Action Sentences'] },
+  { id: 'a2', label: 'A2', name: 'Elementary', desc: 'Describe immediate environments, routine tasks, weather shifts, and read basic text forms.', topics: ['Housing Routines', 'Simple Past (Perfekt)', 'Adjective Rules'] }
 ];
 
 const tabsContainer = document.getElementById('levelTabs');
@@ -389,21 +427,30 @@ levels.forEach((lv, i) => {
   const tab = document.createElement('button');
   tab.className = 'level-tab' + (i === 0 ? ' active' : '');
   tab.textContent = lv.label + ' — ' + lv.name;
-  tab.onclick = () => { document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active')); document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active')); tab.classList.add('active'); document.getElementById('lc-' + lv.id).classList.add('active'); };
+  tab.onclick = () => { 
+    document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active')); 
+    document.querySelectorAll('.level-content').forEach(c => c.classList.remove('active')); 
+    tab.classList.add('active'); 
+    document.getElementById('lc-' + lv.id).classList.add('active'); 
+  };
   tabsContainer.appendChild(tab);
   
   const content = document.createElement('div');
   content.className = 'level-content' + (i === 0 ? ' active' : '');
   content.id = 'lc-' + lv.id;
-  content.innerHTML = `<div class="level-info"><div class="level-info-left"><h3>${lv.label} — ${lv.name}</h3><p>${lv.desc}</p></div><div><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Topics Covered</div><ul class="topics-list">${lv.topics.map(t => `<li>${t}</li>`).join('')}</ul></div></div>`;
+  content.innerHTML = `<div class="level-info"><div class="level-info-left"><h3>${lv.label} — ${lv.name}</h3><p>${lv.desc}</p><button onclick="launchWorkspace('${lv.label}','paneFlashcards')" class="btn-primary" style="margin-top:1rem; padding: 0.5rem 1rem; font-size:0.85rem;">Launch ${lv.label} Studio →</button></div><div><div style="font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem">Topics Covered</div><ul class="topics-list">${lv.topics.map(t => `<li>${t}</li>`).join('')}</ul></div></div>`;
   contentsContainer.appendChild(content);
 });
 
-// --- WORKSPACE APP INTERACTIONS CONTROLLERS ---
-function launchWorkspace(levelId) {
+// --- WORKSPACE & TEXT-TO-SPEECH CONTROLLERS ---
+function launchWorkspace(levelId, paneId, topicName = "Core Vocabulary") {
   document.getElementById('activeWorkspaceBadge').textContent = levelId.toUpperCase();
+  document.getElementById('activeTopicBadge').textContent = `(${topicName})`;
   document.getElementById('appWorkspace').style.display = 'grid';
-  document.body.style.overflow = 'hidden'; // Stop background content scrolling
+  document.body.style.overflow = 'hidden';
+  if(topicName === "Core Vocabulary") activeVocabSet = vocabDatabase.general;
+  currentCardIdx = 0;
+  switchPane(paneId || 'paneFlashcards');
   renderCard();
 }
 
@@ -412,41 +459,60 @@ function closeWorkspace() {
   document.body.style.overflow = 'auto';
 }
 
-function switchPane(paneId, element) {
+function switchPane(paneId) {
   document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.app-content-pane').forEach(pane => pane.classList.remove('active'));
   
-  element.classList.add('active');
+  const activeSidebarLink = document.getElementById('link' + paneId.charAt(0).toUpperCase() + paneId.slice(1));
+  if(activeSidebarLink) activeSidebarLink.classList.add('active');
   document.getElementById(paneId).classList.add('active');
 }
 
 function renderCard() {
-  const card = mockWords[currentCardIdx];
+  const card = activeVocabSet[currentCardIdx];
   document.getElementById('flashcardBox').classList.remove('flipped');
   setTimeout(() => {
     document.getElementById('cardWordGerman').textContent = card.de;
     document.getElementById('cardWordEnglish').textContent = card.en;
     document.querySelector('.card-context').textContent = card.ctx;
-  }, 150);
+  }, 100);
 }
 
 function nextCard(event) {
   event.stopPropagation();
-  currentCardIdx = (currentCardIdx + 1) % mockWords.length;
+  currentCardIdx = (currentCardIdx + 1) % activeVocabSet.length;
   renderCard();
 }
 
 function prevCard(event) {
   event.stopPropagation();
-  currentCardIdx = (currentCardIdx - 1 + mockWords.length) % mockWords.length;
+  currentCardIdx = (currentCardIdx - 1 + activeVocabSet.length) % activeVocabSet.length;
   renderCard();
 }
 
 function inspectWord(german, english) {
   document.getElementById('inspectGerman').textContent = german;
   document.getElementById('inspectEnglish').textContent = english;
+  // Automatically read inspected words out loud too!
+  speakText(german);
+}
+
+function speakGermanWord(event) {
+  event.stopPropagation(); // Avoid flipping the card when clicking the audio button
+  const word = activeVocabSet[currentCardIdx].de;
+  speakText(word);
+}
+
+function speakText(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel(); // Stop any currently playing speech
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'de-DE'; // Force German accent engine
+    window.speechSynthesis.speak(utterance);
+  } else {
+    alert("Audio speech isn't fully supported on this device browser profile.");
+  }
 }
 </script>
 </body>
 </html>
-
