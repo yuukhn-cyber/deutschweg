@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschWeg — Full-Stack Integration</title>
+    <title>DeutschWeg — Full-Stack Edition</title>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
-        /* CSS-ka Guud ee Mareegtaada */
+        /* CSS-ka Guud ee DeutschWeg */
         :root {
             --c-bg: #0a0a0c;
             --c-text: #f3f4f6;
@@ -27,10 +27,27 @@
             overflow-x: hidden;
         }
 
+        /* Qaybta sare ee mareegta */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .logo span { color: var(--c-primary); }
+
         /* Hero Section */
         .hero {
             position: relative;
-            min-height: 80vh;
+            min-height: 75vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -39,9 +56,22 @@
             padding: 2rem;
         }
 
+        .badge {
+            background-color: rgba(255, 189, 89, 0.1);
+            border: 1px solid rgba(255, 189, 89, 0.3);
+            color: var(--c-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .hero h1 {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
+            margin: 0 0 1rem 0;
+            font-weight: 800;
             background: linear-gradient(to right, #ffffff, var(--c-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -52,6 +82,7 @@
             color: #9ca3af;
             max-width: 600px;
             margin-bottom: 2.5rem;
+            line-height: 1.6;
         }
 
         .cta-group {
@@ -92,7 +123,7 @@
             transform: translateY(-2px);
         }
 
-        /* POP-UP MODAL (Sanduuqa Diiwaangelinta) */
+        /* POP-UP MODAL (Sanduuqa Diiwaangelinta Casriga ah) */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -200,12 +231,19 @@
 </head>
 <body>
 
+    <header>
+        <div class="logo">Deutsch<span>Weg</span></div>
+        <button class="btn btn-primary" id="navAuthBtn" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Start Learning</button>
+    </header>
+
     <section class="hero">
-        <h1>DeutschWeg</h1>
-        <p>Baro luuqada Jarmalka qaabka ugu casrisan uguna fudud adoo dhisaya jidkaaga guusha.</p>
+        <div class="badge">🇩🇪 Your German Journey Starts Here</div>
+        <h1>Master Deutsch<br>from A0 to C2</h1>
+        <p>Structured vocabulary, stories, listening, reading, writing — every level, every skill, one focused path. Insha Allah, you'll get there.</p>
+        
         <div class="cta-group">
-            <button class="btn btn-primary" id="openAuthBtn">Start Free</button>
-            <button class="btn btn-secondary" id="exploreBtn">Begin at A0</button>
+            <button class="btn btn-primary" id="heroStartBtn">Begin at A0 →</button>
+            <button class="btn btn-secondary" id="heroExploreBtn">Explore Categories</button>
         </div>
     </section>
 
@@ -213,7 +251,7 @@
         <div class="modal-box">
             <button class="close-btn" id="closeAuthBtn">&times;</button>
             <h2>Ku soo dhowaw DeutschWeg</h2>
-            <p>Fadlan is dhiwaangeli si aad u bilowdo barashada.</p>
+            <p>Fadlan is dhiwaangeli si aad u kaydsato casharadaada.</p>
             
             <form id="registerForm">
                 <div class="form-group">
@@ -230,68 +268,60 @@
     </div>
 
     <script>
-        // 1. ISKU XIRKA SUPABASE
-        // FIIRO GAAR AH: Halkaan ku beddel xogta mashaariicdaada marka aad Supabase ka furato koonto.
-        const SUPABASE_URL = 'https://YOUR_PROJECT_URL.supabase.co'; 
-        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+        // 1. ISKU XIRKA SUPABASE BACKEND
+        const SUPABASE_URL = 'https://vltzfyqxhgbnlvqkjuun.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'Sb_publishable_srk2wvFFAjH4uZaGbBjUNw_bZ-Kekkm'; 
         
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        // 2. MAAMULKA MODAL-KA (Pop-up Logic)
+        // 2. LOGIC-KA MODAL-KA (Pop-up Controls)
         const authModal = document.getElementById('authModal');
-        const openAuthBtn = document.getElementById('openAuthBtn');
-        const exploreBtn = document.getElementById('exploreBtn');
+        const navAuthBtn = document.getElementById('navAuthBtn');
+        const heroStartBtn = document.getElementById('heroStartBtn');
+        const heroExploreBtn = document.getElementById('heroExploreBtn');
         const closeAuthBtn = document.getElementById('closeAuthBtn');
 
-        function showModal() {
-            authModal.classList.add('active');
-        }
+        function openModal() { authModal.classList.add('active'); }
+        function closeModal() { authModal.classList.remove('active'); }
 
-        function hideModal() {
-            authModal.classList.remove('active');
-        }
+        // Badhamada oo dhan marka la riixo Modal-ka ayaa furmaya
+        navAuthBtn.addEventListener('click', openModal);
+        heroStartBtn.addEventListener('click', openModal);
+        heroExploreBtn.addEventListener('click', openModal);
+        closeAuthBtn.addEventListener('click', closeModal);
 
-        openAuthBtn.addEventListener('click', showModal);
-        exploreBtn.addEventListener('click', showModal); // Labada badhamadoodba waxay furayaan koontada
-        closeAuthBtn.addEventListener('click', hideModal);
-
-        // Haddii qofku meel ka baxsan sanduuqa gujiyo ha xirmo
         window.addEventListener('click', (e) => {
-            if (e.target === authModal) {
-                hideModal();
-            }
+            if (e.target === authModal) closeModal();
         });
 
-        // 3. SHAQADA DIIWAANGELINDA (Supabase Auth Backend)
+        // 3. EVENT-KA REIGSTER-KA (Diiwaangelinta dhabta ah)
         const registerForm = document.getElementById('registerForm');
 
         registerForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Innaan mareegtu iska refresh-gayn
+            e.preventDefault();
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const submitBtn = document.querySelector('.submit-btn');
 
-            // Beddel qoraalka badhanka inta shaqadu socoto
             submitBtn.innerText = "Gelinaya xogta...";
             submitBtn.disabled = true;
 
-            // La hadalka Supabase Backend
+            // La hadalka Supabase Authentication
             const { data, error } = await _supabase.auth.signUp({
                 email: email,
                 password: password,
             });
 
-            // Soo celinta qoraalkii badhanka rasmiga ahaa
             submitBtn.innerText = "Abuur Account";
             submitBtn.disabled = false;
 
             if (error) {
                 alert("Cillad: " + error.message);
             } else {
-                alert("Waa guul! Fadlan eeg email-kaaga si aad u xaqiijiso akoonkaaga (Verification).");
-                hideModal();
-                registerForm.reset(); // Nadiifi foomka
+                alert("Waa guul! Email xaqiijin ah ayaa kuu soo dhacay, fadlan eeg sanduuqa fariimahaaga.");
+                closeModal();
+                registerForm.reset();
             }
         });
     </script>
