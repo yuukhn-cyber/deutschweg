@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DeutschWeg — Learn German From Zero</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700;900&family=Inter:wght=300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -23,8 +23,9 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Inter', sans-serif; background: var(--navy); color: var(--white); overflow-x: hidden; }
   
-  /* Navigation */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; background: rgba(13,27,42,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(245,166,35,0.15); }
+  /* Navigation & Header */
+  .main-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,27,42,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(245,166,35,0.15); }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; max-width: 1400px; margin: 0 auto; }
   .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; cursor: pointer; }
   .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -33,7 +34,7 @@
   .nav-cta { background: var(--gold); color: var(--navy); padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s, transform 0.2s; }
   .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
   
-  /* Hero */
+  /* Hero Section */
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(245,166,35,0.08) 0%, transparent 70%); pointer-events: none; }
   .flag-stripe { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--navy) 0%, var(--red-de) 33%, var(--yellow-de) 66%, var(--navy) 100%); background-size: 200% 100%; animation: flagSlide 4s linear infinite; }
@@ -100,8 +101,6 @@
   .skill-icon-wrap { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.2rem; }
   .skill-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 0.5rem; }
   .skill-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-  .skill-levels { display: flex; gap: 0.35rem; margin-top: 1.2rem; flex-wrap: wrap; }
-  .skill-level-badge { font-size: 0.65rem; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(255,255,255,0.08); color: var(--text-muted); }
   
   .levels-tabs { display: flex; gap: 0.5rem; margin: 2rem 0; flex-wrap: wrap; }
   .level-tab { padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
@@ -118,8 +117,8 @@
   .cta-section { text-align: center; padding: 8rem 2rem; position: relative; overflow: hidden; }
   .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,166,35,0.1) 0%, transparent 70%); }
   
-  footer { border-top: 1px solid rgba(255,255,255,0.07); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; color: var(--text-muted); font-size: 0.8rem; }
-  footer strong { color: var(--gold); }
+  .main-footer { border-top: 1px solid rgba(255,255,255,0.07); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; color: var(--text-muted); font-size: 0.8rem; }
+  .main-footer strong { color: var(--gold); }
   
   /* --- WORKSPACE SYSTEM --- */
   #appWorkspace { position: fixed; inset: 0; z-index: 1000; background: var(--navy); display: none; grid-template-columns: 260px 1fr; animation: workspaceFadeIn 0.3s ease; }
@@ -171,105 +170,109 @@
 </head>
 <body>
 
-<nav>
-  <div class="nav-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">Deutsch<span>Weg</span></div>
-  <ul class="nav-links">
-    <li><a href="#categories">Vocabulary</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#levels">Levels</a></li>
-  </ul>
-  <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="nav-cta">Start Learning</button>
-</nav>
+<header class="main-header">
+  <nav>
+    <div class="nav-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">Deutsch<span>Weg</span></div>
+    <ul class="nav-links">
+      <li><a href="#categories">Vocabulary</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#levels">Levels</a></li>
+    </ul>
+    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="nav-cta">Start Learning</button>
+  </nav>
+</header>
 
-<div class="hero" id="start">
-  <div class="flag-stripe"></div>
-  <div class="hero-eyebrow">Your German Journey Starts Here</div>
-  <h1 class="hero-title">Master<br><em>Deutsch</em><br>from A0 to C2</h1>
-  <p class="hero-sub">Structured vocabulary, stories, listening, reading, writing — every level, every skill, one focused path. Insha Allah, you'll get there.</p>
-  <div class="hero-actions">
-    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Begin at A0 →</button>
-    <a href="#categories" class="btn-ghost">Explore Categories</a>
-  </div>
-  
-  <div class="roadmap">
-    <div class="roadmap-track">
-      <div class="level-node l-a0" onclick="launchWorkspace('a0', 'paneFlashcards')"><div class="level-circle">A0</div><div class="level-label">Starter</div></div>
-      <div class="level-connector c-sage"></div>
-      <div class="level-node l-a1" onclick="launchWorkspace('a1', 'paneFlashcards')"><div class="level-circle">A1</div><div class="level-label">Beginner</div></div>
-      <div class="level-connector c-sage"></div>
-      <div class="level-node l-a2" onclick="launchWorkspace('a2', 'paneFlashcards')"><div class="level-circle">A2</div><div class="level-label">Elementary</div></div>
-      <div class="level-connector c-gold"></div>
-      <div class="level-node l-b1" onclick="launchWorkspace('b1', 'paneFlashcards')"><div class="level-circle">B1</div><div class="level-label">Intermediate</div></div>
-      <div class="level-connector c-gold"></div>
-      <div class="level-node l-b2" onclick="launchWorkspace('b2', 'paneFlashcards')"><div class="level-circle">B2</div><div class="level-label">Upper-Int.</div></div>
-      <div class="level-connector c-red"></div>
-      <div class="level-node l-c1" onclick="launchWorkspace('c1', 'paneFlashcards')"><div class="level-circle">C1</div><div class="level-label">Advanced</div></div>
-      <div class="level-connector c-purple"></div>
-      <div class="level-node l-c2" onclick="launchWorkspace('c2', 'paneFlashcards')"><div class="level-circle">C2</div><div class="level-label">Mastery</div></div>
+<main>
+  <section class="hero" id="start">
+    <div class="flag-stripe"></div>
+    <div class="hero-eyebrow">Your German Journey Starts Here</div>
+    <h1 class="hero-title">Master<br><em>Deutsch</em><br>from A0 to C2</h1>
+    <p class="hero-sub">Structured vocabulary, stories, listening, reading, writing — every level, every skill, one focused path. Insha Allah, you'll get there.</p>
+    <div class="hero-actions">
+      <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Begin at A0 →</button>
+      <a href="#categories" class="btn-ghost">Explore Categories</a>
     </div>
-  </div>
-
-  <div class="stats-bar">
-    <div class="stat"><div class="stat-number">3,500+</div><div class="stat-label">Essential Words</div></div>
-    <div class="stat"><div class="stat-number">7</div><div class="stat-label">CEFR Levels</div></div>
-    <div class="stat"><div class="stat-number">10</div><div class="stat-label">Topic Categories</div></div>
-    <div class="stat"><div class="stat-number">4</div><div class="stat-label">Core Skills</div></div>
-  </div>
-</div>
-
-<div id="categories">
-  <div class="categories-section">
-    <div class="section-eyebrow">Vocabulary by Topic</div>
-    <h2 class="section-title">100 Essential Words — 10 Categories</h2>
-    <p class="section-sub">Every category is a door into the German world. Click any category below to immediately open its learning cards inside the workspace studio.</p>
-    <div class="categories-grid" id="catGrid"></div>
-  </div>
-</div>
-
-<div id="skills">
-  <div class="skills-section">
-    <div class="section-eyebrow">The Four Pillars</div>
-    <h2 class="section-title">Four Skills, One Language</h2>
-    <p class="section-sub">Every level covers customized interactive modules. Click on a learning pillar below to jump directly into that practical workspace module.</p>
-    <div class="skills-grid">
-      <div class="skill-card" onclick="launchWorkspace('a0', 'paneFlashcards')">
-        <div class="skill-icon-wrap" style="background:rgba(126,200,164,0.15)">🗂️</div>
-        <div class="skill-title">Vocabulary Cards</div>
-        <div class="skill-desc">Learn essential German words with live pronunciation audio modules.</div>
-      </div>
-      <div class="skill-card" onclick="launchWorkspace('a0', 'paneStories')">
-        <div class="skill-icon-wrap" style="background:rgba(245,166,35,0.15)">📖</div>
-        <div class="skill-title">Context Stories</div>
-        <div class="skill-desc">Tap sentences to inspect translations inside immersive native text streams.</div>
-      </div>
-      <div class="skill-card" onclick="launchWorkspace('a0', 'paneListening')">
-        <div class="skill-icon-wrap" style="background:rgba(180,60,200,0.15)">🎧</div>
-        <div class="skill-title">Audio Lab</div>
-        <div class="skill-desc">Listen to graded native recordings calibrated directly for your active target level.</div>
+    
+    <div class="roadmap">
+      <div class="roadmap-track">
+        <div class="level-node l-a0" onclick="launchWorkspace('a0', 'paneFlashcards')"><div class="level-circle">A0</div><div class="level-label">Starter</div></div>
+        <div class="level-connector c-sage"></div>
+        <div class="level-node l-a1" onclick="launchWorkspace('a1', 'paneFlashcards')"><div class="level-circle">A1</div><div class="level-label">Beginner</div></div>
+        <div class="level-connector c-sage"></div>
+        <div class="level-node l-a2" onclick="launchWorkspace('a2', 'paneFlashcards')"><div class="level-circle">A2</div><div class="level-label">Elementary</div></div>
+        <div class="level-connector c-gold"></div>
+        <div class="level-node l-b1" onclick="launchWorkspace('b1', 'paneFlashcards')"><div class="level-circle">B1</div><div class="level-label">Intermediate</div></div>
+        <div class="level-connector c-gold"></div>
+        <div class="level-node l-b2" onclick="launchWorkspace('b2', 'paneFlashcards')"><div class="level-circle">B2</div><div class="level-label">Upper-Int.</div></div>
+        <div class="level-connector c-red"></div>
+        <div class="level-node l-c1" onclick="launchWorkspace('c1', 'paneFlashcards')"><div class="level-circle">C1</div><div class="level-label">Advanced</div></div>
+        <div class="level-connector c-purple"></div>
+        <div class="level-node l-c2" onclick="launchWorkspace('c2', 'paneFlashcards')"><div class="level-circle">C2</div><div class="level-label">Mastery</div></div>
       </div>
     </div>
-  </div>
-</div>
 
-<div id="levels">
-  <div class="levels-section">
-    <div class="section-eyebrow">Level Guide</div>
-    <h2 class="section-title">What You'll Learn at Each Level</h2>
-    <div class="levels-tabs" id="levelTabs"></div>
-    <div id="levelContents"></div>
-  </div>
-</div>
+    <div class="stats-bar">
+      <div class="stat"><div class="stat-number">3,500+</div><div class="stat-label">Essential Words</div></div>
+      <div class="stat"><div class="stat-number">7</div><div class="stat-label">CEFR Levels</div></div>
+      <div class="stat"><div class="stat-number">10</div><div class="stat-label">Topic Categories</div></div>
+      <div class="stat"><div class="stat-number">4</div><div class="stat-label">Core Skills</div></div>
+    </div>
+  </section>
 
-<div class="cta-section">
-  <div class="section-eyebrow">Ready?</div>
-  <h2 class="section-title" style="max-width:500px">Your Deutsch journey begins today</h2>
-  <p class="section-sub">One word at a time, one story at a time. Insha Allah — you will reach C2.</p>
-  <div class="hero-actions" style="justify-content:center">
-    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Start at A0 — It's Free →</button>
-  </div>
-</div>
+  <section id="categories">
+    <div class="categories-section">
+      <div class="section-eyebrow">Vocabulary by Topic</div>
+      <h2 class="section-title">100 Essential Words — 10 Categories</h2>
+      <p class="section-sub">Every category is a door into the German world. Click any category below to immediately open its learning cards inside the workspace studio.</p>
+      <div class="categories-grid" id="catGrid"></div>
+    </div>
+  </section>
 
-<footer>
+  <section id="skills">
+    <div class="skills-section">
+      <div class="section-eyebrow">The Four Pillars</div>
+      <h2 class="section-title">Four Skills, One Language</h2>
+      <p class="section-sub">Every level covers customized interactive modules. Click on a learning pillar below to jump directly into that practical workspace module.</p>
+      <div class="skills-grid">
+        <div class="skill-card" onclick="launchWorkspace('a0', 'paneFlashcards')">
+          <div class="skill-icon-wrap" style="background:rgba(126,200,164,0.15)">🗂️</div>
+          <div class="skill-title">Vocabulary Cards</div>
+          <div class="skill-desc">Learn essential German words with live pronunciation audio modules.</div>
+        </div>
+        <div class="skill-card" onclick="launchWorkspace('a0', 'paneStories')">
+          <div class="skill-icon-wrap" style="background:rgba(245,166,35,0.15)">📖</div>
+          <div class="skill-title">Context Stories</div>
+          <div class="skill-desc">Tap sentences to inspect translations inside immersive native text streams.</div>
+        </div>
+        <div class="skill-card" onclick="launchWorkspace('a0', 'paneListening')">
+          <div class="skill-icon-wrap" style="background:rgba(180,60,200,0.15)">🎧</div>
+          <div class="skill-title">Audio Lab</div>
+          <div class="skill-desc">Listen to graded native recordings calibrated directly for your active target level.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="levels">
+    <div class="levels-section">
+      <div class="section-eyebrow">Level Guide</div>
+      <h2 class="section-title">What You'll Learn at Each Level</h2>
+      <div class="levels-tabs" id="levelTabs"></div>
+      <div id="levelContents"></div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="section-eyebrow">Ready?</div>
+    <h2 class="section-title" style="max-width:500px">Your Deutsch journey begins today</h2>
+    <p class="section-sub">One word at a time, one story at a time. Insha Allah — you will reach C2.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Start at A0 — It's Free →</button>
+    </div>
+  </section>
+</main>
+
+<footer class="main-footer">
   <div>🇩🇪 <strong>DeutschWeg</strong> — Master German</div>
   <div>From A0 to C2 · Insha Allah</div>
 </footer>
@@ -337,7 +340,7 @@
           <span class="clickable-word" onclick="inspectWord('Das ist','That is / This is')">Das ist</span> 
           <span class="clickable-word" onclick="inspectWord('meine Familie','my family')">meine Familie</span>. 
           <span class="clickable-word" onclick="inspectWord('Wir lernen','We learn / We are learning')">Wir lernen</span> zusammen 
-          <span class="clickable-word" onclick="inspectWord('Deutsch','German')">Deutsch</span>.
+          <span class="clickable-word" onclick="German')">Deutsch</span>.
         </div>
         <div class="story-inspector" id="inspectorBox">
           <div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div>
@@ -361,7 +364,7 @@
 </div>
 
 <script>
-// Vocabulary Datasets matching specific Categories
+// Vocabulary Datasets
 const vocabDatabase = {
   general: [
     { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting across Germany." },
@@ -385,7 +388,6 @@ const vocabDatabase = {
 let activeVocabSet = vocabDatabase.general;
 let currentCardIdx = 0;
 
-// Dynamic categories setup
 const categories = [
   { icon: '👨‍👩‍👧', name: 'Family & People', key: 'family', color: '#4FC3F7', words: 120 },
   { icon: '🌤️', name: 'Weather & Nature', key: 'weather', color: '#4FC3F7', words: 90 },
@@ -442,7 +444,7 @@ levels.forEach((lv, i) => {
   contentsContainer.appendChild(content);
 });
 
-// --- WORKSPACE & TEXT-TO-SPEECH CONTROLLERS ---
+// --- WORKSPACE SYSTEM CONTROLLERS ---
 function launchWorkspace(levelId, paneId, topicName = "Core Vocabulary") {
   document.getElementById('activeWorkspaceBadge').textContent = levelId.toUpperCase();
   document.getElementById('activeTopicBadge').textContent = `(${topicName})`;
@@ -493,24 +495,23 @@ function prevCard(event) {
 function inspectWord(german, english) {
   document.getElementById('inspectGerman').textContent = german;
   document.getElementById('inspectEnglish').textContent = english;
-  // Automatically read inspected words out loud too!
   speakText(german);
 }
 
 function speakGermanWord(event) {
-  event.stopPropagation(); // Avoid flipping the card when clicking the audio button
+  event.stopPropagation();
   const word = activeVocabSet[currentCardIdx].de;
   speakText(word);
 }
 
 function speakText(text) {
   if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel(); // Stop any currently playing speech
+    window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'de-DE'; // Force German accent engine
+    utterance.lang = 'de-DE';
     window.speechSynthesis.speak(utterance);
   } else {
-    alert("Audio speech isn't fully supported on this device browser profile.");
+    alert("Audio speech isn't fully supported on this device.");
   }
 }
 </script>
