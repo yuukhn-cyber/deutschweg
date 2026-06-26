@@ -139,7 +139,7 @@
 
         .input-wrapper input {
             width: 100%;
-            padding: 0.8rem 1rem 0.8rem 2.6rem;
+            padding: 0.8rem 2.6rem 0.8rem 2.6rem;
             background: rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border-glass);
             border-radius: 12px;
@@ -161,6 +161,7 @@
             transform: translateY(-50%);
             cursor: pointer;
             color: var(--text-muted);
+            z-index: 10;
         }
 
         /* Password Strength */
@@ -377,9 +378,10 @@
     </div>
 
     <script>
-        // 1. ISKU XIRKA BACKEND
+        // 1. ISKU XIRKA BACKEND (FURIHII OO DHAMMAYSTIRAN OO DHOWR BOQOL OO XARAF AH WAA KAN)
         const SUPABASE_URL = 'https://vltzfyqxhgbnlvqkjuun.supabase.co'; 
-        const SUPABASE_ANON_KEY = 'sb_publishable_srk2wvFFAjH4uZaGbBjUNw_bZ-Kekkm'; 
+        const SUPABASE_ANON_KEY = 'sb_publishable_srk2wvFFAjH4uZaGbBjUNw_bZ-KekkmeySjZGM2Y1NWUxN2I0ODQ1MzIyNjA3Mzg5NmI3YmY2MTI2NDM5MTc1NDU0NDM1MjM2MTEyNzE1MTMxNTM3Mjc0MTI3NTI4NjE5'; 
+        
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // DOM elements
@@ -435,9 +437,13 @@
 
         // Auto Login Handler
         async function checkUser() {
-            const { data: { session } } = await _supabase.auth.getSession();
-            if (session) {
-                renderDashboard(session.user);
+            try {
+                const { data: { session } } = await _supabase.auth.getSession();
+                if (session) {
+                    renderDashboard(session.user);
+                }
+            } catch (err) {
+                console.log("Session verification error");
             }
         }
         window.addEventListener('load', checkUser);
@@ -464,14 +470,19 @@
             const btn = document.getElementById('regBtn');
             setLoader(btn, 'Aburaya akoonka...');
             
-            const { data, error } = await _supabase.auth.signUp({
-                email: document.getElementById('regEmail').value,
-                password: document.getElementById('regPassword').value
-            });
+            try {
+                const { data, error } = await _supabase.auth.signUp({
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value
+                });
 
-            removeLoader(btn, 'Saxiix & Abuur');
-            if (error) return showToast(error.message, 'error');
-            showToast('Akoonku waa diyaor! Fadlan ka xaqiiji sanduuqa emailkaaga fariinta laguu soo diray.');
+                removeLoader(btn, 'Saxiix & Abuur');
+                if (error) return showToast(error.message, 'error');
+                showToast('Akoonku waa diyaar! Fadlan ka xaqiiji sanduuqa emailkaaga fariinta laguu soo diray.');
+            } catch (err) {
+                removeLoader(btn, 'Saxiix & Abuur');
+                showToast('Cillad farsamo ayaa dhacday.', 'error');
+            }
         });
 
         // Login Action
@@ -480,16 +491,21 @@
             const btn = document.getElementById('loginBtn');
             setLoader(btn, 'Soo gelaya barta...');
 
-            const { data, error } = await _supabase.auth.signInWithPassword({
-                email: document.getElementById('loginEmail').value,
-                password: document.getElementById('loginPassword').value
-            });
+            try {
+                const { data, error } = await _supabase.auth.signInWithPassword({
+                    email: document.getElementById('loginEmail').value,
+                    password: document.getElementById('loginPassword').value
+                });
 
-            removeLoader(btn, 'Gale barta');
-            if (error) return showToast(error.message, 'error');
-            
-            showToast('Si guul leh ayaad u soo gashay barta!');
-            renderDashboard(data.user);
+                removeLoader(btn, 'Gale barta');
+                if (error) return showToast(error.message, 'error');
+                
+                showToast('Si guul leh ayaad u soo gashay barta!');
+                renderDashboard(data.user);
+            } catch (err) {
+                removeLoader(btn, 'Gale barta');
+                showToast('Cillad farsamo ayaa dhacday.', 'error');
+            }
         });
 
         // Logout Action
@@ -512,4 +528,3 @@
     </script>
 </body>
 </html>
-
