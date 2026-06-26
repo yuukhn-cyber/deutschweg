@@ -268,10 +268,9 @@
     </div>
 
     <script>
-        // 1. ISKU XIRKA SUPABASE BACKEND (Xogta rasmiga ah oo saxda ah)
+        // 1. ISKU XIRKA SUPABASE BACKEND
         const SUPABASE_URL = 'https://vltzfyqxhgbnlvqkjuun.supabase.co'; 
         const SUPABASE_ANON_KEY = 'sb_publishable_srk2wvFFAjH4uZaGbBjUNw_bZ-Kekkm'; 
-                                   sb_publishable_srk2wvFFAjH4uZaGbBjUNw_bZ-Kekkm
         
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -285,7 +284,6 @@
         function openModal() { authModal.classList.add('active'); }
         function closeModal() { authModal.classList.remove('active'); }
 
-        // Badhamada oo dhan marka la riixo Modal-ka ayaa furmaya
         navAuthBtn.addEventListener('click', openModal);
         heroStartBtn.addEventListener('click', openModal);
         heroExploreBtn.addEventListener('click', openModal);
@@ -295,7 +293,7 @@
             if (e.target === authModal) closeModal();
         });
 
-        // 3. EVENT-KA REIGSTER-KA (Diiwaangelinta dhabta ah)
+        // 3. EVENT-KA REGISTER-KA (Diiwaangelinta dhabta ah)
         const registerForm = document.getElementById('registerForm');
 
         registerForm.addEventListener('submit', async (e) => {
