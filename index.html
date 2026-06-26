@@ -1,816 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="DeutschWeg — Learn German from A0 to C2. Vocabulary, Stories, Listening, Reading, Writing and Workbook for every level.">
-<meta name="theme-color" content="#0B1320">
-<title>DeutschWeg — Learn German A0 to C2</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
-<style>
-/* ============================================================
-   DESIGN TOKENS (UPDATED WITH MODERN VIBRANT PALETTE)
-   ============================================================ */
-:root {
-  /* Premium Dark Navy + Electric Gold/Amber Palette */
-  --c-bg:        #0B1320; /* Dark Navy Madowga qoto dheer */
-  --c-bg2:       #111C30; /* Lighter Navy oo loogu talagalay Cards-ka */
-  --c-bg3:       #17263F; 
-  --c-surface:   #1E3150;
-  --c-border:    rgba(255,255,255,0.06);
-  
-  /* Vibrant Accents */
-  --c-amber:     #F1A422; /* Huruudda Dahabiga ah ee shidan */
-  --c-amber2:    #FFBA43; /* Iftiinka labaad ee Huruudda */
-  --c-ice:       #38BDF8; /* Ice Blue oo loogu talagalay contrast-ka */
-  --c-ice2:      #7DD3FC;
-  --c-white:     #FFFFFF;
-  --c-text:      #E2E8F0;
-  --c-muted:     #64748B;
-  --c-muted2:    #94A3B8;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeutschWeg — Full-Stack Integration</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  /* German flag colors */
-  --c-de-black:  #1A1A1A;
-  --c-de-red:    #E11D48;
-  --c-de-gold:   #F59E0B;
+    <style>
+        /* CSS-ka Guud ee Mareegtaada */
+        :root {
+            --c-bg: #0a0a0c;
+            --c-text: #f3f4f6;
+            --c-primary: #ffbd59;
+            --c-primary-glow: rgba(255, 189, 89, 0.2);
+            --c-card-bg: #141419;
+            --c-border: #24242b;
+        }
 
-  /* Type */
-  --f-display:   'Lora', Georgia, serif;
-  --f-body:      'Outfit', system-ui, sans-serif;
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--c-bg);
+            color: var(--c-text);
+            overflow-x: hidden;
+        }
 
-  /* Spacing */
-  --s-xs: 0.5rem;
-  --s-sm: 1rem;
-  --s-md: 1.5rem;
-  --s-lg: 2.5rem;
-  --s-xl: 4rem;
-  --s-2xl: 7rem;
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
 
-  /* Radius */
-  --r-sm: 8px;
-  --r-md: 16px;
-  --r-lg: 24px;
-  --r-xl: 32px;
-  --r-full: 9999px;
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, var(--c-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-  /* Transitions */
-  --t-fast: 0.15s ease;
-  --t-mid:  0.3s ease;
-  --t-slow: 0.5s ease;
-}
+        .hero p {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+        }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; }
-body {
-  font-family: var(--f-body);
-  background: var(--c-bg);
-  color: var(--c-text);
-  overflow-x: hidden;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
-a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
-img { max-width: 100%; display: block; }
-ul { list-style: none; }
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+        }
 
-/* ============================================================
-   SCROLLBAR
-   ============================================================ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--c-bg); }
-::-webkit-scrollbar-thumb { background: var(--c-surface); border-radius: 3px; }
+        .btn {
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
 
-/* ============================================================
-   NOISE TEXTURE OVERLAY
-   ============================================================ */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
-  pointer-events: none; opacity: 0.3;
-}
+        .btn-primary {
+            background-color: var(--c-primary);
+            color: var(--c-bg);
+            border: none;
+            box-shadow: 0 4px 20px var(--c-primary-glow);
+        }
 
-/* ============================================================
-   NAV
-   ============================================================ */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 68px;
-  display: flex; align-items: center;
-  padding: 0 var(--s-lg);
-  background: rgba(11, 19, 32, 0.85);
-  backdrop-filter: blur(20px) saturate(1.5);
-  border-bottom: 1px solid var(--c-border);
-  transition: background var(--t-mid);
-}
-.nav.scrolled { background: rgba(11, 19, 32, 0.98); }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 189, 89, 0.4);
+        }
 
-.nav-inner {
-  width: 100%; max-width: 1280px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-}
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--c-primary);
+            border: 2px solid var(--c-primary);
+        }
 
-.nav-logo {
-  display: flex; align-items: center; gap: 10px;
-  font-weight: 800; font-size: 1.3rem; letter-spacing: -0.03em;
-}
-.nav-logo-flag {
-  width: 26px; height: 18px; border-radius: 3px; overflow: hidden;
-  display: flex; flex-direction: column;
-}
-.nav-logo-flag span {
-  flex: 1; display: block;
-}
-.nav-logo-flag span:nth-child(1) { background: var(--c-de-black); }
-.nav-logo-flag span:nth-child(2) { background: var(--c-de-red); }
-.nav-logo-flag span:nth-child(3) { background: var(--c-de-gold); }
-.nav-logo-text { color: var(--c-white); }
-.nav-logo-text em { font-style: normal; color: var(--c-amber); }
+        .btn-secondary:hover {
+            background-color: var(--c-primary-glow);
+            transform: translateY(-2px);
+        }
 
-.nav-links {
-  display: flex; align-items: center; gap: var(--s-lg);
-}
-.nav-links a {
-  font-size: 0.88rem; font-weight: 500;
-  color: var(--c-muted2);
-  transition: color var(--t-fast);
-  position: relative;
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
-  height: 2px; background: var(--c-amber);
-  transform: scaleX(0); transition: transform var(--t-fast);
-}
-.nav-links a:hover { color: var(--c-white); }
-.nav-links a:hover::after { transform: scaleX(1); }
+        /* POP-UP MODAL (Sanduuqa Diiwaangelinta) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
 
-.nav-actions { display: flex; align-items: center; gap: var(--s-sm); }
-.btn-nav-ghost {
-  padding: 0.45rem 1.1rem; border-radius: var(--r-full);
-  border: 1px solid var(--c-border);
-  font-size: 0.85rem; font-weight: 600;
-  color: var(--c-muted2);
-  transition: all var(--t-fast);
-}
-.btn-nav-ghost:hover { border-color: var(--c-amber); color: var(--c-amber); }
-.btn-nav-cta {
-  padding: 0.5rem 1.3rem; border-radius: var(--r-full);
-  background: var(--c-amber);
-  font-size: 0.85rem; font-weight: 700;
-  color: var(--c-bg); /* Qoraal madow ah si uu u iftiimo */
-  transition: all var(--t-fast);
-  box-shadow: 0 0 20px rgba(241, 164, 34, 0.2);
-}
-.btn-nav-cta:hover {
-  background: var(--c-amber2);
-  box-shadow: 0 0 30px rgba(241, 164, 34, 0.35);
-  transform: translateY(-1px);
-}
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-.nav-hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  padding: 6px; cursor: pointer;
-}
-.nav-hamburger span {
-  display: block; width: 22px; height: 2px;
-  background: var(--c-muted2); border-radius: 2px;
-  transition: all var(--t-fast);
-}
+        .modal-box {
+            background-color: var(--c-card-bg);
+            border: 1px solid var(--c-border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
 
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  padding: 120px var(--s-lg) var(--s-xl);
-  text-align: center;
-  position: relative; overflow: hidden;
-}
+        .modal-box h2 {
+            margin-top: 0;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
 
-.hero-orb {
-  position: absolute; border-radius: 50%;
-  filter: blur(100px); pointer-events: none;
-  animation: orbFloat 10s ease-in-out infinite;
-}
-.hero-orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(241, 164, 34, 0.1) 0%, transparent 70%);
-  top: -150px; left: -100px;
-}
-.hero-orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
-  bottom: -100px; right: -50px;
-  animation-delay: -5s;
-}
+        .modal-box p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
 
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -30px) scale(1.05); }
-}
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
 
-.hero-flag-bar {
-  position: absolute; top: 68px; left: 0; right: 0;
-  height: 3px; display: flex;
-}
-.hero-flag-bar span { flex: 1; }
-.hero-flag-bar span:nth-child(1) { background: var(--c-de-black); }
-.hero-flag-bar span:nth-child(2) { background: var(--c-de-red); }
-.hero-flag-bar span:nth-child(3) { background: var(--c-de-gold); }
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
 
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 0.5rem 1.2rem; border-radius: var(--r-full);
-  background: rgba(241, 164, 34, 0.08);
-  border: 1px solid rgba(241, 164, 34, 0.2);
-  font-size: 0.78rem; font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--c-amber);
-  margin-bottom: var(--s-md);
-  animation: fadeSlideUp 0.6s ease both;
-}
-.hero-badge-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--c-amber);
-  animation: blink 1.5s ease-in-out infinite;
-}
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: #9ca3af;
+        }
 
-.hero-title {
-  font-family: var(--f-display);
-  font-size: clamp(3rem, 7.5vw, 5.8rem);
-  font-weight: 700; line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--c-white);
-  animation: fadeSlideUp 0.6s 0.1s ease both;
-  max-width: 900px;
-}
-.hero-title-accent {
-  color: var(--c-amber);
-  position: relative;
-  display: inline-block;
-}
-.hero-title-accent::after {
-  content: '';
-  position: absolute; left: 0; right: 0; bottom: 4px;
-  height: 3px; background: var(--c-amber);
-  transform: scaleX(1);
-}
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--c-bg);
+            border: 1px solid var(--c-border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
+        }
 
-.hero-sub {
-  font-size: 1.15rem; color: var(--c-muted2);
-  max-width: 580px; line-height: 1.8;
-  margin: var(--s-md) auto 0;
-  animation: fadeSlideUp 0.6s 0.2s ease both;
-}
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--c-primary);
+        }
 
-.hero-ctas {
-  display: flex; gap: var(--s-sm);
-  margin-top: var(--s-lg); flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeSlideUp 0.6s 0.3s ease both;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 0.9.5rem 2.2rem; border-radius: var(--r-full);
-  background: var(--c-amber);
-  font-size: 0.95rem; font-weight: 700;
-  color: var(--c-bg);
-  transition: all var(--t-fast);
-  box-shadow: 0 4px 24px rgba(241, 164, 34, 0.25);
-}
-.btn-primary:hover {
-  background: var(--c-amber2);
-  box-shadow: 0 8px 32px rgba(241, 164, 34, 0.4);
-  transform: translateY(-2px);
-}
-.btn-primary svg { transition: transform var(--t-fast); }
-.btn-primary:hover svg { transform: translateX(3px); }
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--c-primary);
+            color: var(--c-bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
+        }
 
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 0.95rem 2.2rem; border-radius: var(--r-full);
-  border: 1px solid var(--c-amber); /* Border-ka oo laga dhigay midabka shidan */
-  font-size: 0.95rem; font-weight: 600;
-  color: var(--c-amber);
-  transition: all var(--t-fast);
-}
-.btn-secondary:hover {
-  background: rgba(241, 164, 34, 0.05);
-  transform: translateY(-1px);
-}
-
-/* ============================================================
-   LEVEL ROADMAP
-   ============================================================ */
-.roadmap {
-  width: 100%; max-width: 860px; margin: var(--s-xl) auto 0;
-  animation: fadeSlideUp 0.6s 0.4s ease both;
-}
-.roadmap-label {
-  font-size: 0.75rem; font-weight: 700;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--c-muted); margin-bottom: var(--s-sm);
-}
-.roadmap-track {
-  display: flex; align-items: center; justify-content: center;
-  overflow-x: auto; padding: var(--s-sm) 0;
-  scrollbar-width: none;
-}
-.roadmap-track::-webkit-scrollbar { display: none; }
-
-.rnode {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 8px; cursor: pointer; flex-shrink: 0;
-}
-.rnode-circle {
-  width: 56px; height: 56px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem; font-weight: 800; border: 2px solid;
-  transition: all var(--t-mid); z-index: 2;
-}
-.rnode:hover .rnode-circle {
-  transform: scale(1.15);
-  box-shadow: 0 0 20px currentColor;
-}
-.rnode-label {
-  font-size: 0.68rem; font-weight: 700; opacity: 0.6;
-  text-transform: uppercase;
-}
-.rnode:hover .rnode-label { opacity: 1; }
-
-.rline {
-  width: 44px; height: 2px; flex-shrink: 0; margin-bottom: 24px;
-  opacity: 0.2; background: currentColor;
-}
-
-/* CEFR Nodes Custom Glows */
-.rn-a0 { --nc: #4ADE80; }
-.rn-a1 { --nc: #38BDF8; }
-.rn-a2 { --nc: #F1A422; }
-.rn-b1 { --nc: #FB923C; }
-.rn-b2 { --nc: #F87171; }
-.rn-c1 { --nc: #C084FC; }
-.rn-c2 { --nc: #F472B6; }
-.rnode .rnode-circle { border-color: var(--nc); color: var(--nc); background: rgba(11, 28, 48, 0.6); }
-.rline { color: var(--nc); }
-
-/* ============================================================
-   STATS
-   ============================================================ */
-.hero-stats {
-  display: flex; gap: var(--s-xl); margin-top: var(--s-lg);
-  flex-wrap: wrap; justify-content: center;
-}
-.hstat { text-align: center; }
-.hstat-num {
-  font-family: var(--f-body);
-  font-size: 2.2rem; font-weight: 800;
-  color: var(--c-white); line-height: 1;
-}
-.hstat-label {
-  font-size: 0.75rem; color: var(--c-muted2);
-  margin-top: 6px; text-transform: uppercase; letter-spacing: 0.05em;
-}
-
-/* ============================================================
-   CATEGORIES
-   ============================================================ */
-.categories-section {
-  background: var(--c-bg2);
-  border-top: 1px solid var(--c-border);
-  border-bottom: 1px solid var(--c-border);
-}
-.cat-grid {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
-  margin-top: var(--s-xl);
-}
-.cat-card {
-  background: var(--c-bg3);
-  padding: var(--s-md); border-radius: var(--r-md);
-  border: 1px solid var(--c-border); cursor: pointer;
-  transition: all var(--t-fast); display: flex; flex-direction: column; gap: 12px;
-}
-.cat-card:hover {
-  border-color: var(--cat-color);
-  transform: translateY(-2px);
-  background: var(--c-surface);
-}
-.cat-icon { font-size: 1.6rem; }
-.cat-name { font-size: 0.95rem; font-weight: 600; color: var(--c-white); }
-.cat-meta { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-.cat-count { font-size: 0.78rem; color: var(--c-muted2); }
-.cat-arrow { color: var(--cat-color); font-weight: bold; }
-
-/* ============================================================
-   SKILLS & WORKBOOK GENERAL
-   ============================================================ */
-.skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s-md); margin-top: var(--s-xl); }
-.skill-card {
-  background: var(--c-bg2); border: 1px solid var(--c-border);
-  border-radius: var(--r-lg); padding: var(--s-lg); transition: all var(--t-mid);
-}
-.skill-card:hover {
-  border-color: var(--sk-color);
-  transform: translateY(-4px);
-  background: var(--c-bg3);
-}
-.skill-icon {
-  width: 44px; height: 44px; border-radius: var(--r-sm);
-  display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
-  background: color-mix(in srgb, var(--sk-color) 15%, transparent); margin-bottom: var(--s-md);
-}
-.skill-title { font-size: 1.1rem; font-weight: 700; color: var(--c-white); margin-bottom: 8px; }
-.skill-desc { font-size: 0.88rem; color: var(--c-muted2); line-height: 1.6; }
-.skill-card-wide { grid-column: span 2; }
-
-/* ============================================================
-   LEVELS EXPLORER
-   ============================================================ */
-.levels-section { background: var(--c-bg2); border-top: 1px solid var(--c-border); border-bottom: 1px solid var(--c-border); }
-.levels-layout { display: grid; grid-template-columns: 240px 1fr; gap: var(--s-lg); margin-top: var(--s-xl); }
-.levels-sidebar { display: flex; flex-direction: column; gap: 6px; }
-.level-btn {
-  display: flex; align-items: center; gap: 12px; padding: 0.8rem var(--s-md);
-  border-radius: var(--r-md); background: var(--c-bg3); border: 1px solid transparent;
-  transition: all var(--t-fast); text-align: left; width: 100%; color: var(--c-text);
-}
-.level-btn:hover { background: var(--c-surface); }
-.level-btn.active {
-  background: var(--c-surface); border-color: var(--lb-color);
-}
-.level-btn-badge {
-  width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 0.75rem; font-weight: 800; border: 2px solid var(--lb-color); color: var(--lb-color);
-}
-.level-btn.active .level-btn-badge { background: var(--lb-color); color: var(--c-bg); }
-.level-btn-code { font-size: 0.85rem; font-weight: 700; color: var(--c-white); }
-.level-btn-name { font-size: 0.75rem; color: var(--c-muted2); }
-
-.level-panel {
-  background: var(--c-bg3); border: 1px solid var(--c-border);
-  border-radius: var(--r-xl); padding: var(--s-xl); display: none;
-}
-.level-panel.active { display: block; }
-.lp-code { font-size: 0.75rem; font-weight: 700; color: var(--lp-color); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px;}
-.lp-title { font-family: var(--f-display); font-size: 2.2rem; font-weight: 600; color: var(--c-white); margin-bottom: 12px; }
-.lp-desc { color: var(--c-muted2); font-size: 0.95rem; line-height: 1.7; max-width: 600px; }
-.lp-topics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: var(--s-md); }
-.lp-topic {
-  display: flex; align-items: center; gap: 10px; padding: 12px var(--s-md);
-  background: var(--c-surface); border-radius: var(--r-sm); font-size: 0.88rem; color: var(--c-text);
-}
-.lp-topic::before { content: '→'; color: var(--lp-color); font-weight: bold; }
-
-/* ============================================================
-   WORKBOOK
-   ============================================================ */
-.workbook-grid { grid-template-columns: repeat(4, 1fr); display: grid; gap: var(--s-md); margin-top: var(--s-xl); }
-.wb-card {
-  background: var(--c-bg3); border: 1px solid var(--c-border); border-radius: var(--r-lg); padding: var(--s-md); transition: all var(--t-mid);
-}
-.wb-card:hover { border-color: var(--c-amber); transform: translateY(-3px); }
-.wb-level { display: inline-block; font-size: 0.65rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; background: var(--wb-color); color: var(--c-bg); margin-bottom: 10px; }
-.wb-title { font-size: 1rem; font-weight: 700; color: var(--c-white); margin-bottom: 6px; }
-.wb-desc { font-size: 0.82rem; color: var(--c-muted2); }
-
-/* ============================================================
-   SECTION REUSABLES
-   ============================================================ */
-.section { padding: var(--s-2xl) var(--s-lg); }
-.section-inner { max-width: 1280px; margin: 0 auto; }
-.section-tag { font-size: 0.75rem; font-weight: 700; color: var(--c-amber); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em;}
-.section-title { font-family: var(--f-display); font-size: 2.5rem; font-weight: 600; color: var(--c-white); }
-.section-desc { color: var(--c-muted2); margin-top: 6px; }
-
-/* ============================================================
-   CTA SECTION & FOOTER
-   ============================================================ */
-.cta-section { text-align: center; padding: var(--s-2xl) var(--s-lg); position: relative; }
-.cta-title { font-family: var(--f-display); font-size: 3rem; color: var(--c-white); margin-bottom: var(--s-md); }
-.cta-sub { color: var(--c-muted2); margin-bottom: var(--s-lg); }
-footer { border-top: 1px solid var(--c-border); padding: var(--s-lg); background: #070B14; }
-.footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-.footer-links { display: flex; gap: var(--s-md); }
-.footer-links a { color: var(--c-muted2); font-size: 0.85rem; }
-.footer-links a:hover { color: var(--c-amber); }
-
-/* Animations Scroll Reveal */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 1024px) {
-  .cat-grid { grid-template-columns: repeat(3, 1fr); }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .skill-card-wide { grid-column: span 2; }
-  .workbook-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .nav-links, .btn-nav-ghost { display: none; }
-  .nav-hamburger { display: flex; }
-  .levels-layout { grid-template-columns: 1fr; }
-  .levels-sidebar { flex-direction: row; flex-wrap: wrap; }
-  .cat-grid { grid-template-columns: repeat(2, 1fr); }
-  .workbook-grid { grid-template-columns: 1fr; }
-  .footer-inner { flex-direction: column; gap: var(--s-sm); }
-}
-</style>
+        .submit-btn:hover {
+            background-color: #e5a94e;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="nav" id="mainNav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-flag">
-        <span></span><span></span><span></span>
-      </div>
-      <span class="nav-logo-text">Deutsch<em>Weg</em></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#vocabulary">Vocabulary</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#levels">Levels</a></li>
-      <li><a href="#workbook">Workbook</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="btn-nav-ghost">Sign in</button>
-      <button class="btn-nav-cta">Start Free</button>
-      <div class="nav-hamburger" id="hamburger">
-        <span></span><span></span><span></span>
-      </div>
+    <section class="hero">
+        <h1>DeutschWeg</h1>
+        <p>Baro luuqada Jarmalka qaabka ugu casrisan uguna fudud adoo dhisaya jidkaaga guusha.</p>
+        <div class="cta-group">
+            <button class="btn btn-primary" id="openAuthBtn">Start Free</button>
+            <button class="btn btn-secondary" id="exploreBtn">Begin at A0</button>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box">
+            <button class="close-btn" id="closeAuthBtn">&times;</button>
+            <h2>Ku soo dhowaw DeutschWeg</h2>
+            <p>Fadlan is dhiwaangeli si aad u bilowdo barashada.</p>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="email">Email-kaaga</label>
+                    <input type="email" id="email" placeholder="magac@tusaale.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Kelmada Sirta ah (Password)</label>
+                    <input type="password" id="password" placeholder="Ugu yaraan 6 xaraf" required>
+                </div>
+                <button type="submit" class="submit-btn">Abuur Account</button>
+            </form>
+        </div>
     </div>
-  </div>
-</nav>
 
-<section class="hero" id="home">
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-flag-bar">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="hero-badge">
-    <span class="hero-badge-dot"></span>
-    Your German Journey — From Zero to Fluent
-  </div>
-  <h1 class="hero-title">
-    Master <span class="hero-title-accent">Deutsch</span><br>
-    from A0 to C2
-  </h1>
-  <p class="hero-sub">
-    Every level. Every skill. One beautiful path — Vocabulary, Listening, Reading, Writing &amp; Workbook. <em>Insha Allah</em>, you'll get there.
-  </p>
-  <div class="hero-ctas">
-    <a href="#levels" class="btn-primary">
-      Begin at A0
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <a href="#vocabulary" class="btn-secondary">
-      Explore Categories
-    </a>
-  </div>
+    <script>
+        // 1. ISKU XIRKA SUPABASE
+        // FIIRO GAAR AH: Halkaan ku beddel xogta mashaariicdaada marka aad Supabase ka furato koonto.
+        const SUPABASE_URL = 'https://YOUR_PROJECT_URL.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+        
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  <div class="roadmap">
-    <p class="roadmap-label">Your learning path</p>
-    <div class="roadmap-track" id="roadmapTrack"></div>
-  </div>
+        // 2. MAAMULKA MODAL-KA (Pop-up Logic)
+        const authModal = document.getElementById('authModal');
+        const openAuthBtn = document.getElementById('openAuthBtn');
+        const exploreBtn = document.getElementById('exploreBtn');
+        const closeAuthBtn = document.getElementById('closeAuthBtn');
 
-  <div class="hero-stats">
-    <div class="hstat">
-      <div class="hstat-num">3,500+</div>
-      <div class="hstat-label">Essential Words</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">7</div>
-      <div class="hstat-label">CEFR Levels</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">10</div>
-      <div class="hstat-label">Topic Categories</div>
-    </div>
-    <div class="hstat">
-      <div class="hstat-num">5</div>
-      <div class="hstat-label">Core Skills</div>
-    </div>
-  </div>
-</section>
+        function showModal() {
+            authModal.classList.add('active');
+        }
 
-<section class="section categories-section reveal" id="vocabulary">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Vocabulary by Topic</div>
-      <h2 class="section-title">10 Categories, 100 Essential Words</h2>
-      <p class="section-desc">Every category unlocks a world of German — words, a mini-story, and exercises built in.</p>
-    </div>
-    <div class="cat-grid" id="catGrid"></div>
-  </div>
-</section>
+        function hideModal() {
+            authModal.classList.remove('active');
+        }
 
-<section class="section reveal" id="skills">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Five Pillars</div>
-      <h2 class="section-title">Every Skill You Need to Speak German</h2>
-      <p class="section-desc">From your first word to full fluency — stories, listening, reading, writing, and daily practice.</p>
-    </div>
-    <div class="skills-grid" id="skillsGrid"></div>
-  </div>
-</section>
+        openAuthBtn.addEventListener('click', showModal);
+        exploreBtn.addEventListener('click', showModal); // Labada badhamadoodba waxay furayaan koontada
+        closeAuthBtn.addEventListener('click', hideModal);
 
-<section class="section levels-section reveal" id="levels">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Level Guide</div>
-      <h2 class="section-title">Seven Levels, One Clear Journey</h2>
-      <p class="section-desc">Choose your level and see exactly what you'll learn — topics, skills, and what you can do after.</p>
-    </div>
-    <div class="levels-layout">
-      <div class="levels-sidebar" id="levelsSidebar"></div>
-      <div id="levelPanels"></div>
-    </div>
-  </div>
-</section>
+        // Haddii qofku meel ka baxsan sanduuqa gujiyo ha xirmo
+        window.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                hideModal();
+            }
+        });
 
-<section class="section reveal" id="workbook">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Daily Practice</div>
-      <h2 class="section-title">Workbook — Exercise for Every Level</h2>
-      <p class="section-desc">Fill-in-the-blank, matching, translation drills, and quizzes. Your German homework — without the stress.</p>
-    </div>
-    <div class="workbook-grid" id="workbookGrid"></div>
-  </div>
-</section>
+        // 3. SHAQADA DIIWAANGELINDA (Supabase Auth Backend)
+        const registerForm = document.getElementById('registerForm');
 
-<section class="cta-section reveal">
-  <h2 class="cta-title">Your Deutsch journey<br>begins today</h2>
-  <p class="cta-sub">One word at a time. One story at a time. <em>Insha Allah</em> — you will reach C2.</p>
-  <a href="#levels" class="btn-primary" style="display:inline-flex">
-    Start at A0 — It's Free
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
-  <p class="cta-date">🇩🇪 DeutschWeg — Founded 2026 · Insha Allah</p>
-</section>
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Innaan mareegtu iska refresh-gayn
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Deutsch<em>Weg</em></div>
-    <nav class="footer-links">
-      <a href="#vocabulary">Vocabulary</a>
-      <a href="#skills">Skills</a>
-      <a href="#levels">Levels</a>
-      <a href="#workbook">Workbook</a>
-    </nav>
-    <div class="footer-right">© 2026 DeutschWeg · A0 to C2</div>
-  </div>
-</footer>
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const submitBtn = document.querySelector('.submit-btn');
 
-<script>
-'use strict';
+            // Beddel qoraalka badhanka inta shaqadu socoto
+            submitBtn.innerText = "Gelinaya xogta...";
+            submitBtn.disabled = true;
 
-const LEVELS = [
-  { id:'a0', code:'A0', name:'Absolute Beginner', color:'#4ADE80', desc:'Zero German? Perfect. Start with the alphabet, pronunciation, numbers, colors, and your first 100 essential words.', topics:['Alphabet & Pronunciation','Numbers 1–100','Colors & Basic Shapes','Greetings & Goodbyes','Days, Months & Seasons'] },
-  { id:'a1', code:'A1', name:'Beginner', color:'#38BDF8', desc:'Introduce yourself, talk about your family, describe where you live, and handle simple everyday situations.', topics:['Family & People','City & Places','Food & Drinks','Clothing & Shopping','Present Tense (Präsens)'] },
-  { id:'a2', code:'A2', name:'Elementary', color:'#F1A422', desc:'Handle everyday conversations — your home, the weather, daily routines, and write short messages.', topics:['Home & Living','Weather & Nature','Time & Frequency','Adjectives & Descriptions','Past Tense (Perfekt)'] },
-  { id:'b1', code:'B1', name:'Intermediate', color:'#FB923C', desc:'Navigate most travel situations, describe experiences, express opinions, and understand clear standard speech.', topics:['Travel & Transport','Work & Professions','Health & Body','Connecting Words','Subordinate Clauses'] },
-  { id:'b2', code:'B2', name:'Upper-Intermediate', color:'#F87171', desc:'Interact fluently with native speakers, understand complex texts, and write detailed, well-structured content.', topics:['Media & Technology','Society & Culture','Environment & Politics','Passive Voice','Konjunktiv II'] },
-  { id:'c1', code:'C1', name:'Advanced', color:'#C084FC', desc:'Express yourself fluently without searching for words. Use complex academic and professional German with ease.', topics:['Academic Writing','Politics & Law','Literature & Arts','Idiomatic Expressions','Advanced Grammar Structures'] },
-  { id:'c2', code:'C2', name:'Mastery', color:'#F472B6', desc:'Near-native proficiency. Understand virtually everything, express nuance precisely, and appreciate cultural depth.', topics:['Literary German','Regional Dialects','Nuance & Register','Advanced Argumentation','Cultural & Historical Depth'] },
-];
+            // La hadalka Supabase Backend
+            const { data, error } = await _supabase.auth.signUp({
+                email: email,
+                password: password,
+            });
 
-const CATEGORIES = [
-  { icon:'👨‍👩‍👧', name:'Family & People',      color:'#38BDF8', words:120 },
-  { icon:'🌤️',    name:'Weather & Nature',    color:'#4ADE80', words:90  },
-  { icon:'💬',    name:'More Verbs',           color:'#F1A422', words:150 },
-  { icon:'🏠',    name:'Home & Living',        color:'#FB923C', words:130 },
-  { icon:'🏙️',   name:'City & Places',        color:'#F87171', words:100 },
-  { icon:'📝',    name:'Adjectives',           color:'#C084FC', words:140 },
-  { icon:'🍕',    name:'Food & Drinks',        color:'#4ADE80', words:120 },
-  { icon:'⏰',    name:'Time & Frequency',     color:'#38BDF8', words:80  },
-  { icon:'👕',    name:'Clothing',             color:'#F472B6', words:70  },
-  { icon:'🔗',    name:'Connecting Words',     color:'#F1A422', words:60  },
-];
+            // Soo celinta qoraalkii badhanka rasmiga ahaa
+            submitBtn.innerText = "Abuur Account";
+            submitBtn.disabled = false;
 
-const SKILLS = [
-  { icon:'📖', title:'Vocabulary & Stories',   color:'#4ADE80', desc:'Learn words inside short, illustrated stories. Every unit covers one topic — words stick because they have context.' },
-  { icon:'🎧', title:'Listening Practice',      color:'#38BDF8', desc:'Audio dialogues, podcasts, and comprehension exercises — perfectly matched to your CEFR level.' },
-  { icon:'📄', title:'Reading & Exercises',     color:'#C084FC', desc:'Graded texts from simple notices (A0) to newspaper editorials (C2), with grammar and comprehension tasks.' },
-  { icon:'✍️', title:'Writing Skills',          color:'#F87171', desc:'From labelling pictures at A0 to crafting academic essays at C2 — guided writing that builds your German voice.' },
-  { icon:'📓', title:'Workbook — Daily Drills', color:'#F1A422', wide:true, desc:'Fill-in-the-blank, matching, translation, and review quizzes for every level. Think of it as your daily German gym.' },
-];
-
-const WORKBOOK_ITEMS = LEVELS.map((lv,i) => ({
-  level: lv.code, color: lv.color, title: lv.code + ' Workbook', desc: 'Exercises matched to ' + lv.name + ' — drills, quizzes, and translation practice.', exercises: [15,20,25,30,35,40,45][i],
-}));
-
-function buildRoadmap() {
-  const track = document.getElementById('roadmapTrack');
-  LEVELS.forEach((lv, i) => {
-    const node = document.createElement('div');
-    node.className = 'rnode rn-' + lv.id;
-    node.style.setProperty('--nc', lv.color);
-    node.innerHTML = `<div class="rnode-circle">${lv.code}</div><div class="rnode-label">${lv.name.split(' ')[0]}</div>`;
-    node.addEventListener('click', () => openLevel(lv.id));
-    track.appendChild(node);
-    if (i < LEVELS.length - 1) {
-      const line = document.createElement('div');
-      line.className = 'rline';
-      line.style.setProperty('--nc', lv.color);
-      track.appendChild(line);
-    }
-  });
-}
-
-function buildCategories() {
-  const grid = document.getElementById('catGrid');
-  CATEGORIES.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'cat-card';
-    card.style.setProperty('--cat-color', c.color);
-    card.innerHTML = `<div class="cat-icon">${c.icon}</div><div class="cat-name">${c.name}</div><div class="cat-meta"><span class="cat-count">${c.words} words</span><span class="cat-arrow">→</span></div>`;
-    grid.appendChild(card);
-  });
-}
-
-function buildSkills() {
-  const grid = document.getElementById('skillsGrid');
-  const badges = LEVELS.map(l => `<span class="skill-badge" style="margin-right:2px; font-size:10px; background:#1E3150; padding:2px 4px; border-radius:3px; color:#94A3B8;">${l.code}</span>`).join('');
-  SKILLS.forEach(sk => {
-    const card = document.createElement('div');
-    card.className = 'skill-card' + (sk.wide ? ' skill-card-wide' : '');
-    card.style.setProperty('--sk-color', sk.color);
-    card.innerHTML = `<div class="skill-icon">${sk.icon}</div><div class="skill-title">${sk.title}</div><div class="skill-desc">${sk.desc}</div><div class="skill-levels" style="margin-top:10px;">${badges}</div>`;
-    grid.appendChild(card);
-  });
-}
-
-function buildLevels() {
-  const sidebar = document.getElementById('levelsSidebar');
-  const panels  = document.getElementById('levelPanels');
-  LEVELS.forEach((lv, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'level-btn' + (i === 0 ? ' active' : '');
-    btn.dataset.id = lv.id;
-    btn.style.setProperty('--lb-color', lv.color);
-    btn.innerHTML = `<div class="level-btn-badge">${lv.code}</div><div class="level-btn-info"><div class="level-btn-code">${lv.code}</div><div class="level-btn-name">${lv.name}</div></div>`;
-    btn.addEventListener('click', () => openLevel(lv.id));
-    sidebar.appendChild(btn);
-
-    const topicItems = lv.topics.map(t => `<div class="lp-topic">${t}</div>`).join('');
-    const panel = document.createElement('div');
-    panel.className = 'level-panel' + (i === 0 ? ' active' : '');
-    panel.id = 'lp-' + lv.id;
-    panel.style.setProperty('--lp-color', lv.color);
-    panel.innerHTML = `<div class="lp-header"><div class="lp-code">${lv.code} — ${lv.name}</div><div class="lp-title">${lv.name}</div><div class="lp-desc">${lv.desc}</div></div><div class="lp-topics">${topicItems}</div>`;
-    panels.appendChild(panel);
-  });
-}
-
-function openLevel(id) {
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.toggle('active', b.dataset.id === id));
-  document.querySelectorAll('.level-panel').forEach(p => p.classList.toggle('active', p.id === 'lp-' + id));
-  document.querySelectorAll('.rnode').forEach(n => n.style.opacity = n.classList.contains('rn-' + id) ? '1' : '0.45');
-  const lvSection = document.getElementById('levels');
-  if (lvSection) lvSection.scrollIntoView({ behavior:'smooth', block:'start' });
-}
-
-function buildWorkbook() {
-  const grid = document.getElementById('workbookGrid');
-  WORKBOOK_ITEMS.forEach(w => {
-    const card = document.createElement('div');
-    card.className = 'wb-card';
-    card.style.setProperty('--wb-color', w.color);
-    card.innerHTML = `<div class="wb-level">${w.level}</div><div class="wb-title">${w.title}</div><div class="wb-desc">${w.desc}</div><div style="font-size:11px; margin-top:8px; color:#94A3B8;">🔹 ${w.exercises} exercises</div>`;
-    grid.appendChild(card);
-  });
-}
-
-function initReveal() {
-  const els = document.querySelectorAll('.reveal');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  els.forEach(el => obs.observe(el));
-}
-
-function initNav() {
-  const nav = document.getElementById('mainNav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  buildRoadmap(); buildCategories(); buildSkills(); buildLevels(); buildWorkbook(); initReveal(); initNav();
-});
-</script>
+            if (error) {
+                alert("Cillad: " + error.message);
+            } else {
+                alert("Waa guul! Fadlan eeg email-kaaga si aad u xaqiijiso akoonkaaga (Verification).");
+                hideModal();
+                registerForm.reset(); // Nadiifi foomka
+            }
+        });
+    </script>
 </body>
 </html>
