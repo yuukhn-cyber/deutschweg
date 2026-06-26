@@ -101,7 +101,7 @@
   .section-sub { color: var(--text-muted); font-size: 1rem; line-height: 1.7; max-width: 480px; margin-top: 1rem; }
   
   .categories-section { background: var(--navy-mid); border-radius: 2rem; padding: 4rem; margin: 0 2rem; max-width: none; }
-  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 3rem; }
+  .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-top: 3rem; }
   .cat-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.5rem; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; }
   .cat-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); }
   .cat-icon { font-size: 2rem; margin-bottom: 0.8rem; }
@@ -170,12 +170,10 @@
   .clickable-word:hover { background: rgba(245,166,35,0.15); color: var(--gold); border-radius: 4px; }
   .story-inspector { background: var(--navy-light); padding: 2rem; border-radius: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 200px; border: 1px dashed rgba(255,255,255,0.1); }
 
-  /* RESPONSIVE RESPONSIONS (MOBILE BREAKPOINTS) */
+  /* RESPONSIVE DESIGN */
   @media (max-width: 768px) { 
     nav { padding: 1rem 1.5rem; } 
-    
     .burger-menu { display: flex; }
-    
     .nav-links { 
       display: flex; 
       position: fixed;
@@ -191,14 +189,10 @@
       transition: right 0.4s ease;
       box-shadow: -10px 0 30px rgba(0,0,0,0.5);
     }
-
     .nav-links.active { right: 0; }
-
-    /* X Animation */
     .burger-menu.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
     .burger-menu.active .bar:nth-child(2) { opacity: 0; }
     .burger-menu.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
-
     .hero { padding: 6rem 1.5rem 3rem; } 
     .level-info { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; } 
     .categories-section { padding: 2rem 1rem; margin: 0 0.5rem; } 
@@ -222,9 +216,9 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#categories" onclick="toggleMenu()">Greetings & Basics</a></li>
-      <li><a href="#skills" onclick="toggleMenu()">Pronouns & Verbs</a></li>
-      <li><a href="#levels" onclick="toggleMenu()">Questions & Numbers</a></li>
+      <li><a href="#categories" onclick="toggleMenu()">A0 Categories</a></li>
+      <li><a href="#skills" onclick="toggleMenu()">Pillars</a></li>
+      <li><a href="#levels" onclick="toggleMenu()">Level Guide</a></li>
       <li><button onclick="launchWorkspace('a0', 'paneFlashcards'); toggleMenu();" class="nav-cta" style="margin: 0; width: 100%;">Start Learning</button></li>
     </ul>
   </nav>
@@ -238,7 +232,7 @@
     <p class="hero-sub">Structured vocabulary, stories, listening, reading, writing — every level, every skill, one focused path. Insha Allah, you'll get there.</p>
     <div class="hero-actions">
       <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Begin at A0 →</button>
-      <a href="#categories" class="btn-ghost">Explore Categories</a>
+      <a href="#categories" class="btn-ghost">Explore 250 Words</a>
     </div>
     
     <div class="roadmap">
@@ -260,18 +254,18 @@
     </div>
 
     <div class="stats-bar">
-      <div class="stat"><div class="stat-number">3,500+</div><div class="stat-label">Essential Words</div></div>
+      <div class="stat"><div class="stat-number">250</div><div class="stat-label">A0 Essentials</div></div>
+      <div class="stat"><div class="stat-number">10</div><div class="stat-label">Core Tracks</div></div>
       <div class="stat"><div class="stat-number">7</div><div class="stat-label">CEFR Levels</div></div>
-      <div class="stat"><div class="stat-number">3</div><div class="stat-label">A0 Core Blocks</div></div>
-      <div class="stat"><div class="stat-number">4</div><div class="stat-label">Core Skills</div></div>
+      <div class="stat"><div class="stat-number">4</div><div class="stat-label">Core Pillars</div></div>
     </div>
   </section>
 
   <section id="categories">
     <div class="categories-section">
       <div class="section-eyebrow">Vocabulary by Topic</div>
-      <h2 class="section-title">A0 Essentials Track</h2>
-      <p class="section-sub">Click any core category below to open up the official A0 foundational elements inside the training studio workspace.</p>
+      <h2 class="section-title">A0 Advanced Track (250 Words)</h2>
+      <p class="section-sub">Select any vocabulary node below to activate interactive cards and text streams inside the live app studio workspace.</p>
       <div class="categories-grid" id="catGrid"></div>
     </div>
   </section>
@@ -307,15 +301,6 @@
       <h2 class="section-title">What You'll Learn at Each Level</h2>
       <div class="levels-tabs" id="levelTabs"></div>
       <div id="levelContents"></div>
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <div class="section-eyebrow">Ready?</div>
-    <h2 class="section-title" style="max-width:500px">Your Deutsch journey begins today</h2>
-    <p class="section-sub">One word at a time, one story at a time. Insha Allah — you will reach C2.</p>
-    <div class="hero-actions" style="justify-content:center">
-      <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="btn-primary">Start at A0 — It's Free →</button>
     </div>
   </section>
 </main>
@@ -383,8 +368,8 @@
         <div class="story-text-card">
           <span class="clickable-word" onclick="inspectWord('Hallo','Hello')">Hallo</span>, 
           <span class="clickable-word" onclick="inspectWord('ich bin','I am')">ich bin</span> Lukas. 
-          <span class="clickable-word" onclick="inspectWord('Ich wohne','I live')">Ich wohne</span> in 
-          <span class="clickable-word" onclick="inspectWord('Berlin','Berlin (The Capital of Germany)')">Berlin</span>. 
+          <span class="clickable-word" onclick="inspectWord('Ich wohne','I live / reside')">Ich wohne</span> in 
+          <span class="clickable-word" onclick="inspectWord('Berlin','Berlin (The Capital city)')">Berlin</span>. 
           <span class="clickable-word" onclick="inspectWord('Das ist','That is / This is')">Das ist</span> 
           <span class="clickable-word" onclick="inspectWord('meine Familie','my family')">meine Familie</span>. 
           <span class="clickable-word" onclick="inspectWord('Wir lernen','We learn / We are learning')">Wir lernen</span> zusammen 
@@ -412,67 +397,320 @@
 </div>
 
 <script>
-// Vocabulary Datasets - A0 Full Guide Update
+// ADVANCED A0 VOCABULARY DATABASE (250 WORDS TOTAL)
 const vocabDatabase = {
-  general: [
-    { de: "Hallo", en: "Hello", ctx: "The most common friendly greeting." },
-    { de: "Guten Morgen", en: "Good morning", ctx: "Used from 6:00 AM to 11:00 AM." },
-    { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting from 11:00 AM to 6:00 PM." },
-    { de: "Guten Abend", en: "Good evening", ctx: "Used from 6:00 PM onwards." },
-    { de: "Gute Nacht", en: "Good night", ctx: "Only used when going to bed." },
-    { de: "Tschüss", en: "Goodbye", ctx: "Casual and friendly farewell used with friends." },
-    { de: "Auf Wiedersehen", en: "Goodbye (Formal)", ctx: "Literally means 'Until we see each other again'." },
-    { de: "Bis bald", en: "See you soon", ctx: "Used when you expect to see the person again soon." },
-    { de: "Ja", en: "Yes", ctx: "Standard affirmative response." },
-    { de: "Nein", en: "No", ctx: "Standard negative response." },
-    { de: "Bitte", en: "Please / You're welcome", ctx: "Multi-purpose courtesy word." },
-    { de: "Danke schön", en: "Thank you very much", ctx: "Polite expression used daily." },
-    { de: "Entschuldigung", en: "Excuse me / Sorry", ctx: "Used to get attention or apologize." },
-    { de: "Es tut mir leid", en: "I am sorry", ctx: "Used for expressing deeper regret." }
+  greetings_politeness: [
+    { de: "Hallo", en: "Hello", ctx: "General greeting" },
+    { de: "Guten Morgen", en: "Good morning", ctx: "Until 11 AM" },
+    { de: "Guten Tag", en: "Good day", ctx: "11 AM to 6 PM" },
+    { de: "Guten Abend", en: "Good evening", ctx: "After 6 PM" },
+    { de: "Gute Nacht", en: "Good night", ctx: "When going to bed" },
+    { de: "Tschüss", en: "Goodbye", ctx: "Informal" },
+    { de: "Auf Wiedersehen", en: "Goodbye", ctx: "Formal" },
+    { de: "Bis bald", en: "See you soon", ctx: "Friendly farewell" },
+    { de: "Bis später", en: "See you later", ctx: "Same day" },
+    { de: "Willkommen", en: "Welcome", ctx: "Greeting guests" },
+    { de: "Bitte", en: "Please / You're welcome", ctx: "Polite response" },
+    { de: "Danke", en: "Thank you", ctx: "Standard thanks" },
+    { de: "Danke schön", en: "Thank you very much", ctx: "More polite" },
+    { de: "Vielen Dank", en: "Many thanks", ctx: "Formal thanks" },
+    { de: "Entschuldigung", en: "Excuse me / Sorry", ctx: "Get attention" },
+    { de: "Es tut mir leid", en: "I'm sorry", ctx: "Apology" },
+    { de: "Kein Problem", en: "No problem", ctx: "Casual response" },
+    { de: "Ja", en: "Yes", ctx: "Affirmative" },
+    { de: "Nein", en: "No", ctx: "Negative" },
+    { de: "Vielleicht", en: "Maybe", ctx: "Uncertainty" },
+    { de: "Guten Appetit", en: "Enjoy your meal", ctx: "Before eating" },
+    { de: "Gesundheit", en: "Bless you", ctx: "After a sneeze" },
+    { de: "Wie geht es dir?", en: "How are you?", ctx: "Informal" },
+    { de: "Wie geht es Ihnen?", en: "How are you?", ctx: "Formal" },
+    { de: "Mir geht es gut", en: "I am doing well", ctx: "Standard response" }
   ],
-  family: [
-    { de: "Ich", en: "I", ctx: "First-person singular pronoun." },
-    { de: "Du", en: "You (Informal)", ctx: "Used for friends, family, and children." },
-    { de: "Er / Sie / Es", en: "He / She / It", ctx: "Third-person singular pronouns." },
-    { de: "Wir", en: "We", ctx: "First-person plural pronoun." },
-    { de: "Sie", en: "You (Formal)", ctx: "Always capitalized. Used for strangers and authorities." },
-    { de: "Ich bin", en: "I am", ctx: "From the essential verb 'sein' (to be)." },
-    { de: "Du bist", en: "You are", ctx: "Informal 'you are'." },
-    { de: "Er/Sie/Es ist", en: "He/She/It is", ctx: "Singular present of 'sein'." },
-    { de: "Wir sind", en: "We are", ctx: "Plural present of 'sein'." },
-    { de: "Ich habe", en: "I have", ctx: "From the essential verb 'haben' (to have)." },
-    { de: "Du hast", en: "You have", ctx: "Informal 'you have'." },
-    { de: "Er/Sie/Es hat", en: "He/She/It has", ctx: "Singular present of 'haben'." }
+  pronouns_family: [
+    { de: "ich", en: "I", ctx: "1st person singular" },
+    { de: "du", en: "you", ctx: "2nd person singular informal" },
+    { de: "er", en: "he", ctx: "3rd person masculine" },
+    { de: "sie", en: "she / they", ctx: "3rd person feminine or plural" },
+    { de: "es", en: "it", ctx: "3rd person neutral" },
+    { de: "wir", en: "we", ctx: "1st person plural" },
+    { de: "ihr", en: "you all", ctx: "2nd person plural informal" },
+    { de: "Sie", en: "you", ctx: "Formal (always capitalized)" },
+    { de: "mein", en: "my", ctx: "Possessive pronoun" },
+    { de: "dein", en: "your", ctx: "Possessive pronoun informal" },
+    { de: "die Familie", en: "the family", ctx: "Household group" },
+    { de: "die Mutter", en: "the mother", ctx: "Female parent" },
+    { de: "der Vater", en: "the father", ctx: "Male parent" },
+    { de: "die Eltern", en: "the parents", ctx: "Plural noun" },
+    { de: "der Sohn", en: "the son", ctx: "Male child" },
+    { de: "die Tochter", en: "the daughter", ctx: "Female child" },
+    { de: "der Bruder", en: "the brother", ctx: "Male sibling" },
+    { de: "die Schwester", en: "the sister", ctx: "Female sibling" },
+    { de: "die Geschwister", en: "the siblings", ctx: "Brothers and sisters" },
+    { de: "das Kind", en: "the child", ctx: "Young human" },
+    { de: "die Oma", en: "the grandmother", ctx: "Casual for Großmutter" },
+    { de: "der Opa", en: "the grandfather", ctx: "Casual for Großvater" },
+    { de: "der Mann", en: "the man / husband", ctx: "Adult male" },
+    { de: "die Frau", en: "the woman / wife", ctx: "Adult female" },
+    { de: "der Freund", en: "the friend (male)", ctx: "Male friend" },
+    { de: "die Freundin", en: "the friend (female)", ctx: "Female friend" },
+    { de: "der Junge", en: "the boy", ctx: "Male youth" },
+    { de: "das Mädchen", en: "the girl", ctx: "Female youth (neutral noun)" },
+    { de: "der Mensch", en: "the human / person", ctx: "Individual" },
+    { de: "die Leute", en: "the people", ctx: "Plural only" }
   ],
-  weather: [
-    { de: "Wer?", en: "Who?", ctx: "Question word for identity." },
-    { de: "Was?", en: "What?", ctx: "Question word for objects or actions." },
-    { de: "Wo?", en: "Where?", ctx: "Question word for location." },
-    { de: "Woher?", en: "Where from?", ctx: "Commonly used in 'Woher kommen Sie?' (Where do you come from?)." },
-    { de: "Wie?", en: "How?", ctx: "Commonly used in 'Wie geht es dir?' (How are you?)." },
-    { de: "eins", en: "1 (One)", ctx: "Number 1" },
-    { de: "zwei", en: "2 (Two)", ctx: "Number 2" },
-    { de: "drei", en: "3 (Three)", ctx: "Number 3" },
-    { de: "vier", en: "4 (Four)", ctx: "Number 4" },
-    { de: "fünf", en: "5 (Five)", ctx: "Number 5" },
-    { de: "zehn", en: "10 (Ten)", ctx: "Number 10" },
-    { de: "zwanzig", en: "20 (Twenty)", ctx: "Number 20" }
+  numbers_time: [
+    { de: "null", en: "0", ctx: "Zero" },
+    { de: "eins", en: "1", ctx: "One" },
+    { de: "zwei", en: "2", ctx: "Two" },
+    { de: "drei", en: "3", ctx: "Three" },
+    { de: "vier", en: "4", ctx: "Four" },
+    { de: "fünf", en: "5", ctx: "Five" },
+    { de: "sechs", en: "6", ctx: "Six" },
+    { de: "sieben", en: "7", ctx: "Seven" },
+    { de: "acht", en: "8", ctx: "Eight" },
+    { de: "neun", en: "9", ctx: "Nine" },
+    { de: "zehn", en: "10", ctx: "Ten" },
+    { de: "elf", en: "11", ctx: "Eleven" },
+    { de: "zwölf", en: "12", ctx: "Twelve" },
+    { de: "zwanzig", en: "20", ctx: "Twenty" },
+    { de: "dreißig", en: "30", ctx: "Thirty" },
+    { de: "vierzig", en: "40", ctx: "Forty" },
+    { de: "fünfzig", en: "50", ctx: "Fifty" },
+    { de: "hundert", en: "100", ctx: "One hundred" },
+    { de: "tausend", en: "1000", ctx: "One thousand" },
+    { de: "die Zeit", en: "the time", ctx: "General time concept" },
+    { de: "die Uhr", en: "the clock / o'clock", ctx: "Timekeeping device" },
+    { de: "der Tag", en: "the day", ctx: "24-hour period" },
+    { de: "die Woche", en: "the week", ctx: "7 days" },
+    { de: "der Monat", en: "the month", ctx: "Calendar month" },
+    { de: "das Jahr", en: "the year", ctx: "365 days" },
+    { de: "heute", en: "today", ctx: "The current day" },
+    { de: "morgen", en: "tomorrow", ctx: "The next day" },
+    { de: "gestern", en: "yesterday", ctx: "The previous day" },
+    { de: "jetzt", en: "now", ctx: "At this moment" },
+    { de: "der Morgen", en: "the morning", ctx: "Early day" },
+    { de: "der Mittag", en: "the midday / noon", ctx: "12:00 PM" },
+    { de: "der Nachmittag", en: "the afternoon", ctx: "Post-noon" },
+    { de: "der Abend", en: "the evening", ctx: "End of day" },
+    { de: "die Nacht", en: "the night", ctx: "Dark hours" },
+    { de: "spät", en: "late", ctx: "Not on time" }
+  ],
+  days_months: [
+    { de: "Montag", en: "Monday", ctx: "Day 1" },
+    { de: "Dienstag", en: "Tuesday", ctx: "Day 2" },
+    { de: "Mittwoch", en: "Wednesday", ctx: "Day 3" },
+    { de: "Donnerstag", en: "Thursday", ctx: "Day 4" },
+    { de: "Freitag", en: "Friday", ctx: "Day 5" },
+    { de: "Samstag", en: "Saturday", ctx: "Day 6" },
+    { de: "Sonntag", en: "Sunday", ctx: "Day 7" },
+    { de: "das Wochenende", en: "the weekend", ctx: "Saturday and Sunday" },
+    { de: "Januar", en: "January", ctx: "Month 1" },
+    { de: "Februar", en: "February", ctx: "Month 2" },
+    { de: "März", en: "March", ctx: "Month 3" },
+    { de: "April", en: "April", ctx: "Month 4" },
+    { de: "Mai", en: "May", ctx: "Month 5" },
+    { de: "Juni", en: "June", ctx: "Month 6" },
+    { de: "Juli", en: "July", ctx: "Month 7" },
+    { de: "August", en: "August", ctx: "Month 8" },
+    { de: "September", en: "September", ctx: "Month 9" },
+    { de: "Oktober", en: "October", ctx: "Month 10" },
+    { de: "November", en: "November", ctx: "Month 11" },
+    { de: "Dezember", en: "December", ctx: "Month 12" }
+  ],
+  verbs: [
+    { de: "sein", en: "to be", ctx: "Essential auxiliary verb" },
+    { de: "haben", en: "to have", ctx: "Essential auxiliary verb" },
+    { de: "heißen", en: "to be called", ctx: "Used for names" },
+    { de: "kommen", en: "to come", ctx: "Origin or movement" },
+    { de: "wohnen", en: "to live / reside", ctx: "Address location" },
+    { de: "sprechen", en: "to speak", ctx: "Languages" },
+    { de: "lernen", en: "to learn / study", ctx: "Acquiring skills" },
+    { de: "arbeiten", en: "to work", ctx: "Job activity" },
+    { de: "machen", en: "to do / make", ctx: "General actions" },
+    { de: "gehen", en: "to go / walk", ctx: "Movement" },
+    { de: "sehen", en: "to see", ctx: "Vision" },
+    { de: "hören", en: "to hear / listen", ctx: "Audio perception" },
+    { de: "lesen", en: "to read", ctx: "Books or texts" },
+    { de: "schreiben", en: "to write", ctx: "Text production" },
+    { de: "essen", en: "to eat", ctx: "Food intake" },
+    { de: "trinken", en: "to drink", ctx: "Liquid intake" },
+    { de: "schlafen", en: "to sleep", ctx: "Resting" },
+    { de: "kaufen", en: "to buy", ctx: "Commerce" },
+    { de: "verkaufen", en: "to sell", ctx: "Commerce" },
+    { de: "sagen", en: "to say", ctx: "Speech" },
+    { de: "fragen", en: "to ask", ctx: "Questions" },
+    { de: "antworten", en: "to answer", ctx: "Responses" },
+    { de: "geben", en: "to give", ctx: "Handing over" },
+    { de: "nehmen", en: "to take", ctx: "Accepting / catching" },
+    { de: "wissen", en: "to know (facts)", ctx: "Cognitive knowledge" },
+    { de: "kennen", en: "to know (people/places)", ctx: "Familiarity" },
+    { de: "lieben", en: "to love", ctx: "Deep affection" },
+    { de: "mögen", en: "to like", ctx: "Preference" },
+    { de: "brauchen", en: "to need", ctx: "Necessity" },
+    { de: "finden", en: "to find", ctx: "Locating or opinion" }
+  ],
+  questions: [
+    { de: "wer", en: "who", ctx: "Asking about a person" },
+    { de: "was", en: "what", ctx: "Asking about an object/action" },
+    { de: "wo", en: "where", ctx: "Asking about location" },
+    { de: "woher", en: "where from", ctx: "Asking about origin" },
+    { de: "wohin", en: "where to", ctx: "Asking about destination" },
+    { de: "wann", en: "when", ctx: "Asking about time" },
+    { de: "warum", en: "why", ctx: "Asking about reason" },
+    { de: "wie", en: "how", ctx: "Asking about manner" },
+    { de: "wieviel", en: "how much", ctx: "Asking about quantity" },
+    { de: "wie viele", en: "how many", ctx: "Asking about countable items" },
+    { de: "welcher", en: "which", ctx: "Choosing from options" },
+    { de: "wie alt", en: "how old", ctx: "Asking about age" },
+    { de: "wie spät", en: "what time", ctx: "Literally 'how late'" },
+    { de: "wer ist das", en: "who is that", ctx: "Identifying someone" },
+    { de: "was ist das", en: "what is that", ctx: "Identifying an object" }
+  ],
+  food_drinks: [
+    { de: "das Essen", en: "the food", ctx: "General meal noun" },
+    { de: "das Trinken", en: "the drink", ctx: "General beverage noun" },
+    { de: "das Wasser", en: "the water", ctx: "Basic liquid" },
+    { de: "der Kaffee", en: "the coffee", ctx: "Hot beverage" },
+    { de: "der Tee", en: "the tea", ctx: "Hot beverage" },
+    { de: "die Milch", en: "the milk", ctx: "Dairy product" },
+    { de: "der Saft", en: "the juice", ctx: "Fruit beverage" },
+    { de: "das Brot", en: "the bread", ctx: "Bakery staple" },
+    { de: "das Brötchen", en: "the bread roll", ctx: "Small bread" },
+    { de: "der Käse", en: "the cheese", ctx: "Dairy food" },
+    { de: "das Fleisch", en: "the meat", ctx: "Animal protein" },
+    { de: "der Fisch", en: "the fish", ctx: "Seafood protein" },
+    { de: "das Ei", en: "the egg", ctx: "Breakfast item" },
+    { de: "der Apfel", en: "the apple", ctx: "Common fruit" },
+    { de: "die Banane", en: "the banana", ctx: "Common fruit" },
+    { de: "die Kartoffel", en: "the potato", ctx: "Staple vegetable" },
+    { de: "der Reis", en: "the rice", ctx: "Grain food" },
+    { de: "die Suppe", en: "the soup", ctx: "Liquid hot dish" },
+    { de: "der Zucker", en: "the sugar", ctx: "Sweetener" },
+    { de: "das Salz", en: "the salt", ctx: "Seasoning" },
+    { de: "das Restaurant", en: "the restaurant", ctx: "Dining location" },
+    { de: "das Café", en: "the café", ctx: "Coffee house" },
+    { de: "das Frühstück", en: "the breakfast", ctx: "Morning meal" },
+    { de: "das Mittagessen", en: "the lunch", ctx: "Midday meal" },
+    { de: "das Abendessen", en: "the dinner", ctx: "Evening meal" }
+  ],
+  places_transport: [
+    { de: "die Stadt", en: "the city / town", ctx: "Urban area" },
+    { de: "das Land", en: "the country / countryside", ctx: "Nation or rural area" },
+    { de: "das Haus", en: "the house", ctx: "Building structure" },
+    { de: "die Wohnung", en: "the apartment", ctx: "Living space" },
+    { de: "das Zimmer", en: "the room", ctx: "Subdivision of house" },
+    { de: "die Straße", en: "the street", ctx: "Roadway" },
+    { de: "der Bahnhof", en: "the train station", ctx: "Transit hub" },
+    { de: "der Flughafen", en: "the airport", ctx: "Air transit hub" },
+    { de: "die Schule", en: "the school", ctx: "Educational building" },
+    { de: "die Universität", en: "the university", ctx: "Higher education" },
+    { de: "das Krankenhaus", en: "the hospital", ctx: "Medical facility" },
+    { de: "die Apotheke", en: "the pharmacy", ctx: "Medicine shop" },
+    { de: "der Supermarkt", en: "the supermarket", ctx: "Grocery store" },
+    { de: "die Bank", en: "the bank", ctx: "Financial institution" },
+    { de: "das Hotel", en: "the hotel", ctx: "Lodging place" },
+    { de: "das Auto", en: "the car", ctx: "Motor vehicle" },
+    { de: "der Zug", en: "the train", ctx: "Rail vehicle" },
+    { de: "der Bus", en: "the bus", ctx: "Public transit vehicle" },
+    { de: "das Fahrrad", en: "the bicycle", ctx: "Two-wheeled transport" },
+    { de: "das Flugzeug", en: "the airplane", ctx: "Air vehicle" },
+    { de: "das Ticket", en: "the ticket", ctx: "Fare pass" },
+    { de: "hier", en: "here", ctx: "Present location" },
+    { de: "dort", en: "there", ctx: "Distant location" },
+    { de: "rechts", en: "right", ctx: "Direction" },
+    { de: "links", en: "left", ctx: "Direction" }
+  ],
+  adjectives: [
+    { de: "groß", en: "big / tall", ctx: "Size characteristic" },
+    { de: "klein", en: "small / short", ctx: "Size characteristic" },
+    { de: "gut", en: "good", ctx: "Positive quality" },
+    { de: "schlecht", en: "bad", ctx: "Negative quality" },
+    { de: "schön", en: "beautiful / nice", ctx: "Aesthetic quality" },
+    { de: "hässlich", en: "ugly", ctx: "Aesthetic quality" },
+    { de: "neu", en: "new", ctx: "Age status" },
+    { de: "alt", en: "old", ctx: "Age status" },
+    { de: "jung", en: "young", ctx: "Age status" },
+    { de: "schnell", en: "fast", ctx: "Speed" },
+    { de: "langsam", en: "slow", ctx: "Speed" },
+    { de: "teuer", en: "expensive", ctx: "Cost" },
+    { de: "billig", en: "cheap", ctx: "Cost" },
+    { de: "einfach", en: "easy / simple", ctx: "Difficulty" },
+    { de: "schwierig", en: "difficult", ctx: "Difficulty" },
+    { de: "heiß", en: "hot", ctx: "Temperature" },
+    { de: "kalt", en: "cold", ctx: "Temperature" },
+    { de: "warm", en: "warm", ctx: "Temperature" },
+    { de: "müde", en: "tired", ctx: "Physical state" },
+    { de: "krank", en: "sick", ctx: "Health state" },
+    { de: "gesund", en: "healthy", ctx: "Health state" },
+    { de: "glücklich", en: "happy", ctx: "Emotional state" },
+    { de: "traurig", en: "sad", ctx: "Emotional state" },
+    { de: "voll", en: "full", ctx: "Capacity" },
+    { de: "leer", en: "empty", ctx: "Capacity" },
+    { de: "richtig", en: "correct / right", ctx: "Accuracy" },
+    { de: "falsch", en: "wrong / false", ctx: "Accuracy" },
+    { de: "wichtig", en: "important", ctx: "Value" },
+    { de: "sauber", en: "clean", ctx: "Hygiene" },
+    { de: "schmutzig", en: "dirty", ctx: "Hygiene" }
+  ],
+  colors_basics: [
+    { de: "schwarz", en: "black", ctx: "Color" },
+    { de: "weiß", en: "white", ctx: "Color" },
+    { de: "rot", en: "red", ctx: "Color" },
+    { de: "blau", en: "blue", ctx: "Color" },
+    { de: "grün", en: "green", ctx: "Color" },
+    { de: "gelb", en: "yellow", ctx: "Color" },
+    { de: "grau", en: "gray", ctx: "Color" },
+    { de: "braun", en: "brown", ctx: "Color" },
+    { de: "orange", en: "orange", ctx: "Color" },
+    { de: "rosa", en: "pink", ctx: "Color" },
+    { de: "das Buch", en: "the book", ctx: "Reading item" },
+    { de: "der Stift", en: "the pen / pencil", ctx: "Writing item" },
+    { de: "das Papier", en: "the paper", ctx: "Writing material" },
+    { de: "das Handy", en: "the mobile phone", ctx: "Device" },
+    { de: "der Computer", en: "the computer", ctx: "Device" },
+    { de: "der Tisch", en: "the table", ctx: "Furniture" },
+    { de: "der Stuhl", en: "the chair", ctx: "Furniture" },
+    { de: "das Bett", en: "the bed", ctx: "Furniture" },
+    { de: "die Tür", en: "the door", ctx: "Room feature" },
+    { de: "das Fenster", en: "the window", ctx: "Room feature" },
+    { de: "die Tasche", en: "the bag", ctx: "Accessory" },
+    { de: "das Geld", en: "the money", ctx: "Currency" },
+    { de: "der Name", en: "the name", ctx: "Identity" },
+    { de: "das Hobby", en: "the hobby", ctx: "Leisure" },
+    { de: "die Musik", en: "the music", ctx: "Audio art" },
+    { de: "das Wetter", en: "the weather", ctx: "Atmosphere" },
+    { de: "die Sonne", en: "the sun", ctx: "Celestial body" },
+    { de: "der Regen", en: "the rain", ctx: "Precipitation" },
+    { de: "der Schnee", en: "the snow", ctx: "Precipitation" },
+    { de: "der Wind", en: "the wind", ctx: "Air movement" },
+    { de: "und", en: "and", ctx: "Conjunction" },
+    { de: "aber", en: "but", ctx: "Conjunction" },
+    { de: "oder", en: "or", ctx: "Conjunction" },
+    { de: "mit", en: "with", ctx: "Preposition" },
+    { de: "ohne", en: "without", ctx: "Preposition" }
   ]
 };
 
-let activeVocabSet = vocabDatabase.general;
+let activeVocabSet = vocabDatabase.greetings_politeness;
 let currentCardIdx = 0;
 
-// Dynamic categories setup (3 Core Tracks)
+// Setup all 10 categories dynamically in UI
 const categories = [
-  { icon: '💬', name: 'Greetings & Basics', key: 'general', color: '#F5A623', words: 14 },
-  { icon: '👤', name: 'Pronouns & Verbs', key: 'family', color: '#4FC3F7', words: 12 },
-  { icon: '❓', name: 'Questions & Numbers', key: 'weather', color: '#66BB6A', words: 12 }
+  { icon: '💬', name: 'Greetings & Courtesy', key: 'greetings_politeness', color: '#F5A623', words: 25 },
+  { icon: '👤', name: 'Pronouns & Family', key: 'pronouns_family', color: '#4FC3F7', words: 30 },
+  { icon: '🔢', name: 'Numbers & Time', key: 'numbers_time', color: '#66BB6A', words: 35 },
+  { icon: '📅', name: 'Days & Months', key: 'days_months', color: '#AB47BC', words: 20 },
+  { icon: '⚙️', name: 'Essential Verbs', key: 'verbs', color: '#EC407A', words: 30 },
+  { icon: '❓', name: 'Question Words', key: 'questions', color: '#26A69A', words: 15 },
+  { icon: '🍏', name: 'Food & Drinks', key: 'food_drinks', color: '#D4E157', words: 25 },
+  { icon: '📍', name: 'Places & Transit', key: 'places_transport', color: '#5C6BC0', words: 25 },
+  { icon: '🎨', name: 'Core Adjectives', key: 'adjectives', color: '#FFA726', words: 30 },
+  { icon: '🌈', name: 'Colors & Basics', key: 'colors_basics', color: '#26C6DA', words: 35 }
 ];
 
 const grid = document.getElementById('catGrid');
 categories.forEach(c => {
-  const pct = Math.round((c.words / 15) * 100);
+  const pct = Math.round((c.words / 35) * 100);
   const card = document.createElement('div');
   card.className = 'cat-card';
   card.onclick = () => {
@@ -488,10 +726,11 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 observer.observe(grid);
 
+// Levels Guide Tabs Config
 const levels = [
-  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. Meet basic greeting strings, sounds, and standard structural foundations.', topics: ['Alphabet & Sounds', 'Numbers 1–20', 'Greetings & Farewells'] },
-  { id: 'a1', label: 'A1', name: 'Beginner', desc: 'Introduce yourself comfortably, explain family dynamics, and manage restaurant orders.', topics: ['Family Contexts', 'Food & Shopping', 'Present Action Sentences'] },
-  { id: 'a2', label: 'A2', name: 'Elementary', desc: 'Describe immediate environments, routine tasks, weather shifts, and read basic text forms.', topics: ['Housing Routines', 'Simple Past (Perfekt)', 'Adjective Rules'] }
+  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. Meet basic greeting strings, sounds, numbers, and standard structural foundations.', topics: ['Alphabet & Basic Sounds', 'Core Numbers 1–1000', 'Greetings, Manners & Essential Nouns'] },
+  { id: 'a1', label: 'A1', name: 'Beginner', desc: 'Introduce yourself comfortably, explain family dynamics, talk about work, and handle simple shopping.', topics: ['Family Contexts', 'Food & Shopping', 'Present Tense Sentence Building'] },
+  { id: 'a2', label: 'A2', name: 'Elementary', desc: 'Describe your immediate environment, daily routines, weather, and express past events simply.', topics: ['Housing Routines', 'Simple Past (Perfekt)', 'Basic Adjective Declensions'] }
 ];
 
 const tabsContainer = document.getElementById('levelTabs');
@@ -525,13 +764,12 @@ function toggleMenu() {
   }
 }
 
-// --- WORKSPACE & CONTROLLERS ---
-function launchWorkspace(levelId, paneId, topicName = "Core Vocabulary") {
+// --- WORKSPACE CORE MACHINE ---
+function launchWorkspace(levelId, paneId, topicName = "Greetings & Courtesy") {
   document.getElementById('activeWorkspaceBadge').textContent = levelId.toUpperCase();
   document.getElementById('activeTopicBadge').textContent = `(${topicName})`;
   document.getElementById('appWorkspace').style.display = 'grid';
   document.body.style.overflow = 'hidden';
-  if(topicName === "Core Vocabulary") activeVocabSet = vocabDatabase.general;
   currentCardIdx = 0;
   switchPane(paneId || 'paneFlashcards');
   renderCard();
