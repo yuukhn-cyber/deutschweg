@@ -174,7 +174,6 @@
   @media (max-width: 768px) { 
     nav { padding: 1rem 1.5rem; } 
     
-    /* Burger Active Code triggers display */
     .burger-menu { display: flex; }
     
     .nav-links { 
@@ -223,9 +222,9 @@
     </div>
 
     <ul class="nav-links" id="navLinks">
-      <li><a href="#categories" onclick="toggleMenu()">Vocabulary</a></li>
-      <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
-      <li><a href="#levels" onclick="toggleMenu()">Levels</a></li>
+      <li><a href="#categories" onclick="toggleMenu()">Greetings & Basics</a></li>
+      <li><a href="#skills" onclick="toggleMenu()">Pronouns & Verbs</a></li>
+      <li><a href="#levels" onclick="toggleMenu()">Questions & Numbers</a></li>
       <li><button onclick="launchWorkspace('a0', 'paneFlashcards'); toggleMenu();" class="nav-cta" style="margin: 0; width: 100%;">Start Learning</button></li>
     </ul>
   </nav>
@@ -263,7 +262,7 @@
     <div class="stats-bar">
       <div class="stat"><div class="stat-number">3,500+</div><div class="stat-label">Essential Words</div></div>
       <div class="stat"><div class="stat-number">7</div><div class="stat-label">CEFR Levels</div></div>
-      <div class="stat"><div class="stat-number">10</div><div class="stat-label">Topic Categories</div></div>
+      <div class="stat"><div class="stat-number">3</div><div class="stat-label">A0 Core Blocks</div></div>
       <div class="stat"><div class="stat-number">4</div><div class="stat-label">Core Skills</div></div>
     </div>
   </section>
@@ -271,8 +270,8 @@
   <section id="categories">
     <div class="categories-section">
       <div class="section-eyebrow">Vocabulary by Topic</div>
-      <h2 class="section-title">100 Essential Words — 10 Categories</h2>
-      <p class="section-sub">Every category is a door into the German world. Click any category below to immediately open its learning cards inside the workspace studio.</p>
+      <h2 class="section-title">A0 Essentials Track</h2>
+      <p class="section-sub">Click any core category below to open up the official A0 foundational elements inside the training studio workspace.</p>
       <div class="categories-grid" id="catGrid"></div>
     </div>
   </section>
@@ -358,13 +357,13 @@
           <div class="card-inner">
             <div class="card-front">
               <span style="font-size: 0.8rem; letter-spacing: 0.1em; color:var(--gold); text-transform: uppercase;">German</span>
-              <h1 style="font-size:2.2rem; margin: 0.5rem 0;" id="cardWordGerman">Guten Tag</h1>
+              <h1 style="font-size:2.2rem; margin: 0.5rem 0;" id="cardWordGerman">Hallo</h1>
               <div class="audio-btn" onclick="speakGermanWord(event)">🗣️ Click to Speak</div>
             </div>
             <div class="card-back">
               <span style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage)">English Translation</span>
-              <h1 style="font-size:2rem; margin: 0.5rem 0;" id="cardWordEnglish">Good day / Hello</h1>
-              <p class="card-context">Used generally from morning until evening throughout Germany.</p>
+              <h1 style="font-size:2rem; margin: 0.5rem 0;" id="cardWordEnglish">Hello</h1>
+              <p class="card-context">The most common friendly greeting.</p>
             </div>
           </div>
         </div>
@@ -413,45 +412,67 @@
 </div>
 
 <script>
-// Vocabulary Datasets
+// Vocabulary Datasets - A0 Full Guide Update
 const vocabDatabase = {
   general: [
-    { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting across Germany." },
-    { de: "Bitte", en: "Please / You're welcome", ctx: "Multi-purpose courtesy word depending heavily on context." },
-    { de: "Danke schön", en: "Thank you very much", ctx: "Polite structure used daily." },
-    { de: "Auf Wiedersehen", en: "Goodbye", ctx: "Formal farewell statement, literally meaning 'Until we see each other again'." }
+    { de: "Hallo", en: "Hello", ctx: "The most common friendly greeting." },
+    { de: "Guten Morgen", en: "Good morning", ctx: "Used from 6:00 AM to 11:00 AM." },
+    { de: "Guten Tag", en: "Good day / Hello", ctx: "Standard daytime greeting from 11:00 AM to 6:00 PM." },
+    { de: "Guten Abend", en: "Good evening", ctx: "Used from 6:00 PM onwards." },
+    { de: "Gute Nacht", en: "Good night", ctx: "Only used when going to bed." },
+    { de: "Tschüss", en: "Goodbye", ctx: "Casual and friendly farewell used with friends." },
+    { de: "Auf Wiedersehen", en: "Goodbye (Formal)", ctx: "Literally means 'Until we see each other again'." },
+    { de: "Bis bald", en: "See you soon", ctx: "Used when you expect to see the person again soon." },
+    { de: "Ja", en: "Yes", ctx: "Standard affirmative response." },
+    { de: "Nein", en: "No", ctx: "Standard negative response." },
+    { de: "Bitte", en: "Please / You're welcome", ctx: "Multi-purpose courtesy word." },
+    { de: "Danke schön", en: "Thank you very much", ctx: "Polite expression used daily." },
+    { de: "Entschuldigung", en: "Excuse me / Sorry", ctx: "Used to get attention or apologize." },
+    { de: "Es tut mir leid", en: "I am sorry", ctx: "Used for expressing deeper regret." }
   ],
   family: [
-    { de: "die Familie", en: "the family", ctx: "Collective noun describing immediate relatives." },
-    { de: "der Vater", en: "the father", ctx: "Masculine singular noun for dad." },
-    { de: "die Mutter", en: "the mother", ctx: "Feminine singular noun for mom." },
-    { de: "der Bruder", en: "the brother", ctx: "Masculine sibling reference." }
+    { de: "Ich", en: "I", ctx: "First-person singular pronoun." },
+    { de: "Du", en: "You (Informal)", ctx: "Used for friends, family, and children." },
+    { de: "Er / Sie / Es", en: "He / She / It", ctx: "Third-person singular pronouns." },
+    { de: "Wir", en: "We", ctx: "First-person plural pronoun." },
+    { de: "Sie", en: "You (Formal)", ctx: "Always capitalized. Used for strangers and authorities." },
+    { de: "Ich bin", en: "I am", ctx: "From the essential verb 'sein' (to be)." },
+    { de: "Du bist", en: "You are", ctx: "Informal 'you are'." },
+    { de: "Er/Sie/Es ist", en: "He/She/It is", ctx: "Singular present of 'sein'." },
+    { de: "Wir sind", en: "We are", ctx: "Plural present of 'sein'." },
+    { de: "Ich habe", en: "I have", ctx: "From the essential verb 'haben' (to have)." },
+    { de: "Du hast", en: "You have", ctx: "Informal 'you have'." },
+    { de: "Er/Sie/Es hat", en: "He/She/It has", ctx: "Singular present of 'haben'." }
   ],
   weather: [
-    { de: "das Wetter", en: "the weather", ctx: "Used to talk about conditions outside." },
-    { de: "die Sonne", en: "the sun", ctx: "Feminine noun for the sun." },
-    { de: "Es regnet", en: "It is raining", ctx: "Verbal expression for rainfall updates." }
+    { de: "Wer?", en: "Who?", ctx: "Question word for identity." },
+    { de: "Was?", en: "What?", ctx: "Question word for objects or actions." },
+    { de: "Wo?", en: "Where?", ctx: "Question word for location." },
+    { de: "Woher?", en: "Where from?", ctx: "Commonly used in 'Woher kommen Sie?' (Where do you come from?)." },
+    { de: "Wie?", en: "How?", ctx: "Commonly used in 'Wie geht es dir?' (How are you?)." },
+    { de: "eins", en: "1 (One)", ctx: "Number 1" },
+    { de: "zwei", en: "2 (Two)", ctx: "Number 2" },
+    { de: "drei", en: "3 (Three)", ctx: "Number 3" },
+    { de: "vier", en: "4 (Four)", ctx: "Number 4" },
+    { de: "fünf", en: "5 (Five)", ctx: "Number 5" },
+    { de: "zehn", en: "10 (Ten)", ctx: "Number 10" },
+    { de: "zwanzig", en: "20 (Twenty)", ctx: "Number 20" }
   ]
 };
 
 let activeVocabSet = vocabDatabase.general;
 let currentCardIdx = 0;
 
-// Dynamic categories setup
+// Dynamic categories setup (3 Core Tracks)
 const categories = [
-  { icon: '👨‍👩‍👧', name: 'Family & People', key: 'family', color: '#4FC3F7', words: 120 },
-  { icon: '🌤️', name: 'Weather & Nature', key: 'weather', color: '#4FC3F7', words: 90 },
-  { icon: '💬', name: 'More Verbs', key: 'general', color: '#F5A623', words: 150 },
-  { icon: '🏠', name: 'Home & Living', key: 'general', color: '#F5A623', words: 130 },
-  { icon: '🏙️', name: 'City & Places', key: 'general', color: '#EF5350', words: 100 },
-  { icon: '📝', name: 'Adjectives', key: 'general', color: '#EF5350', words: 140 },
-  { icon: '🍕', name: 'Food & Drinks', key: 'general', color: '#66BB6A', words: 120 },
-  { icon: '⏰', name: 'Time & Frequency', key: 'general', color: '#66BB6A', words: 80 }
+  { icon: '💬', name: 'Greetings & Basics', key: 'general', color: '#F5A623', words: 14 },
+  { icon: '👤', name: 'Pronouns & Verbs', key: 'family', color: '#4FC3F7', words: 12 },
+  { icon: '❓', name: 'Questions & Numbers', key: 'weather', color: '#66BB6A', words: 12 }
 ];
 
 const grid = document.getElementById('catGrid');
 categories.forEach(c => {
-  const pct = Math.round((c.words / 160) * 100);
+  const pct = Math.round((c.words / 15) * 100);
   const card = document.createElement('div');
   card.className = 'cat-card';
   card.onclick = () => {
@@ -468,7 +489,7 @@ const observer = new IntersectionObserver(entries => {
 observer.observe(grid);
 
 const levels = [
-  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. Meet basic greeting strings, sounds, and standard structural foundations.', topics: ['Alphabet & Sounds', 'Numbers 1–100', 'Greetings & Farewells'] },
+  { id: 'a0', label: 'A0', name: 'Absolute Beginner', desc: 'Zero experience? Perfect. Meet basic greeting strings, sounds, and standard structural foundations.', topics: ['Alphabet & Sounds', 'Numbers 1–20', 'Greetings & Farewells'] },
   { id: 'a1', label: 'A1', name: 'Beginner', desc: 'Introduce yourself comfortably, explain family dynamics, and manage restaurant orders.', topics: ['Family Contexts', 'Food & Shopping', 'Present Action Sentences'] },
   { id: 'a2', label: 'A2', name: 'Elementary', desc: 'Describe immediate environments, routine tasks, weather shifts, and read basic text forms.', topics: ['Housing Routines', 'Simple Past (Perfekt)', 'Adjective Rules'] }
 ];
