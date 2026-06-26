@@ -28,12 +28,27 @@
   nav { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; max-width: 1400px; margin: 0 auto; }
   .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--white); letter-spacing: -0.02em; cursor: pointer; }
   .nav-logo span { color: var(--gold); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
   .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
   .nav-links a:hover { color: var(--gold); }
   .nav-cta { background: var(--gold); color: var(--navy); padding: 0.6rem 1.4rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; border: none; transition: background 0.2s, transform 0.2s; }
   .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
   
+  /* Burger Menu Button Style */
+  .burger-menu {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 101;
+  }
+  .burger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: var(--white);
+    transition: all 0.3s ease;
+  }
+
   /* Hero Section */
   .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8rem 2rem 4rem; text-align: center; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(245,166,35,0.08) 0%, transparent 70%); pointer-events: none; }
@@ -155,9 +170,36 @@
   .clickable-word:hover { background: rgba(245,166,35,0.15); color: var(--gold); border-radius: 4px; }
   .story-inspector { background: var(--navy-light); padding: 2rem; border-radius: 1.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 200px; border: 1px dashed rgba(255,255,255,0.1); }
 
+  /* RESPONSIVE RESPONSIONS (MOBILE BREAKPOINTS) */
   @media (max-width: 768px) { 
     nav { padding: 1rem 1.5rem; } 
-    .nav-links { display: none; } 
+    
+    /* Burger Active Code triggers display */
+    .burger-menu { display: flex; }
+    
+    .nav-links { 
+      display: flex; 
+      position: fixed;
+      top: 0;
+      right: -100%; 
+      height: 100vh;
+      width: 70%;
+      background: var(--navy-mid);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+      transition: right 0.4s ease;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    .nav-links.active { right: 0; }
+
+    /* X Animation */
+    .burger-menu.active .bar:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+    .burger-menu.active .bar:nth-child(2) { opacity: 0; }
+    .burger-menu.active .bar:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+
     .hero { padding: 6rem 1.5rem 3rem; } 
     .level-info { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem; } 
     .categories-section { padding: 2rem 1rem; margin: 0 0.5rem; } 
@@ -173,12 +215,19 @@
 <header class="main-header">
   <nav>
     <div class="nav-logo" onclick="window.scrollTo({top:0, behavior:'smooth'})">Deutsch<span>Weg</span></div>
-    <ul class="nav-links">
-      <li><a href="#categories">Vocabulary</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#levels">Levels</a></li>
+    
+    <div class="burger-menu" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#categories" onclick="toggleMenu()">Vocabulary</a></li>
+      <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+      <li><a href="#levels" onclick="toggleMenu()">Levels</a></li>
+      <li><button onclick="launchWorkspace('a0', 'paneFlashcards'); toggleMenu();" class="nav-cta" style="margin: 0; width: 100%;">Start Learning</button></li>
     </ul>
-    <button onclick="launchWorkspace('a0', 'paneFlashcards')" class="nav-cta">Start Learning</button>
   </nav>
 </header>
 
@@ -340,7 +389,7 @@
           <span class="clickable-word" onclick="inspectWord('Das ist','That is / This is')">Das ist</span> 
           <span class="clickable-word" onclick="inspectWord('meine Familie','my family')">meine Familie</span>. 
           <span class="clickable-word" onclick="inspectWord('Wir lernen','We learn / We are learning')">Wir lernen</span> zusammen 
-          <span class="clickable-word" onclick="German')">Deutsch</span>.
+          <span class="clickable-word" onclick="inspectWord('Deutsch','German')">Deutsch</span>.
         </div>
         <div class="story-inspector" id="inspectorBox">
           <div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div>
@@ -388,6 +437,7 @@ const vocabDatabase = {
 let activeVocabSet = vocabDatabase.general;
 let currentCardIdx = 0;
 
+// Dynamic categories setup
 const categories = [
   { icon: '👨‍👩‍👧', name: 'Family & People', key: 'family', color: '#4FC3F7', words: 120 },
   { icon: '🌤️', name: 'Weather & Nature', key: 'weather', color: '#4FC3F7', words: 90 },
@@ -444,7 +494,17 @@ levels.forEach((lv, i) => {
   contentsContainer.appendChild(content);
 });
 
-// --- WORKSPACE SYSTEM CONTROLLERS ---
+// --- MENU BURGER CONTROLLER ---
+function toggleMenu() {
+  if (window.innerWidth <= 768) {
+    const burger = document.querySelector('.burger-menu');
+    const navLinks = document.getElementById('navLinks');
+    burger.classList.toggle('active');
+    navLinks.classList.toggle('active');
+  }
+}
+
+// --- WORKSPACE & CONTROLLERS ---
 function launchWorkspace(levelId, paneId, topicName = "Core Vocabulary") {
   document.getElementById('activeWorkspaceBadge').textContent = levelId.toUpperCase();
   document.getElementById('activeTopicBadge').textContent = `(${topicName})`;
@@ -499,19 +559,19 @@ function inspectWord(german, english) {
 }
 
 function speakGermanWord(event) {
-  event.stopPropagation();
+  event.stopPropagation(); 
   const word = activeVocabSet[currentCardIdx].de;
   speakText(word);
 }
 
 function speakText(text) {
   if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel(); 
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'de-DE';
+    utterance.lang = 'de-DE'; 
     window.speechSynthesis.speak(utterance);
   } else {
-    alert("Audio speech isn't fully supported on this device.");
+    alert("Audio speech isn't fully supported on this device browser profile.");
   }
 }
 </script>
